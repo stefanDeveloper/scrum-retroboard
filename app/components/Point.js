@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Container, Row, Col, Button, Form, Input, Label } from 'reactstrap';
+import { Container, Row, Col, Button, Form, Input, Badge } from 'reactstrap';
 
 type Props = {
   point: {
@@ -8,7 +8,6 @@ type Props = {
     text: string,
     likes: string
   },
-  fluidContainer: boolean,
   onChange: () => void,
   onLikeClick: () => void,
   onDislikeClick: () => void,
@@ -24,12 +23,11 @@ export default class Point extends Component<Props> {
       onLikeClick,
       onDislikeClick,
       onDeleteClick,
-      fluidContainer = true,
       point
     } = this.props;
     return (
       <Form>
-        <Container fluid={fluidContainer}>
+        <Container fluid>
           <Row>
             <Col xs="auto">
               <Input
@@ -39,21 +37,23 @@ export default class Point extends Component<Props> {
                 onChange={onChange}
               />
             </Col>
-            <Col>
-              <Label className="text-center">{point.likes}</Label>
-            </Col>
             <Col xs="1">
-              <Button color="link" onClick={onLikeClick}>
+              <Badge pill>{point.likes}</Badge>
+            </Col>
+          </Row>
+          <Row style={{ padding: '.5rem' }}>
+            <Col>
+              <Button block color="success" onClick={onLikeClick}>
                 <i className="fas fa-thumbs-up" />
               </Button>
             </Col>
-            <Col xs="1">
-              <Button color="link" onClick={onDislikeClick}>
+            <Col>
+              <Button block color="danger" onClick={onDislikeClick}>
                 <i className="fas fa-thumbs-down" />
               </Button>
             </Col>
-            <Col xs="1">
-              <Button color="link" onClick={onDeleteClick}>
+            <Col>
+              <Button block color="danger" onClick={onDeleteClick}>
                 <i className="fas fa-times" />
               </Button>
             </Col>
