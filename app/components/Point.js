@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 
 type Props = {
   point: object,
@@ -22,18 +23,18 @@ export default class Point extends Component<Props> {
     } = this.props;
     return (
       <div>
-          <div>
-            <input type="text" value={point.text} onChange={onChange}/> 
-          </div>
-          <div>
-            <button type="button" onClick={onLikeClick} />
-          </div>
-          <div>
-            <button type="button" onClick={onDislikeClick} />
-          </div>
-          <div>
-            <button type="button" onClick={onDeleteClick} />
-          </div>
+        <div>
+          <input type="text" value={point.text} onChange={onChange} />
+        </div>
+        <div>
+          <Button color="info" type="button" onClick={onLikeClick} />
+        </div>
+        <div>
+          <button type="button" onClick={onDislikeClick} />
+        </div>
+        <div>
+          <button type="button" onClick={onDeleteClick} />
+        </div>
       </div>
     );
   }
