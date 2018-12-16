@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { ListGroup, ListGroupItem, Label } from 'reactstrap';
+import { ListGroup, ListGroupItem, Label, Container } from 'reactstrap';
 import Point from './Point';
 
 type Props = {
@@ -34,20 +34,22 @@ export default class PointList extends Component<Props> {
     const { points, pointType, actions } = this.props;
     if (points.length > 0) {
       return (
-        <ListGroup>
-          {points.map(point => (
-            <ListGroupItem key={point.id}>
-              <Point
-                key={point.id}
-                point={point}
-                onChange={event => this.textChanged(event, point)}
-                onLikeClick={() => actions.incrementLike(point, pointType)}
-                onDislikeClick={() => actions.decrementLike(point, pointType)}
-                onDeleteClick={() => actions.remove(point, pointType)}
-              />
-            </ListGroupItem>
-          ))}
-        </ListGroup>
+        <Container fluid>
+          <ListGroup>
+            {points.map(point => (
+              <ListGroupItem key={point.id} flush>
+                <Point
+                  key={point.id}
+                  point={point}
+                  onChange={event => this.textChanged(event, point)}
+                  onLikeClick={() => actions.incrementLike(point, pointType)}
+                  onDislikeClick={() => actions.decrementLike(point, pointType)}
+                  onDeleteClick={() => actions.remove(point, pointType)}
+                />
+              </ListGroupItem>
+            ))}
+          </ListGroup>
+        </Container>
       );
     }
     return <Label>No Point added yet</Label>;

@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Navbar, Nav, NavItem } from 'reactstrap';
+import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import routes from '../constants/routes';
 import * as types from './TabTypes';
 import Tab from './Tab';
@@ -12,7 +12,6 @@ type Props = {
     stop: Array,
     continue: Array
   },
-  fluidContainer: boolean,
   actions: {
     update: point => void,
     create: point => void,
@@ -28,18 +27,15 @@ export default class Board extends Component<Props> {
   props: Props;
 
   render() {
-    const { points, fluidContainer = true, actions } = this.props;
+    const { points, actions } = this.props;
     return (
-      <Container fluid={fluidContainer}>
-        <Navbar color="light" light expand="md" data-tid="backButton">
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <Link to={routes.HOME}>
-                <i className="fa fa-arrow-left fa-3x" />
-              </Link>
-            </NavItem>
-          </Nav>
-        </Navbar>
+      <Container fluid>
+        <Breadcrumb tag="nav" listTag="div">
+          <BreadcrumbItem>
+            <Link to={routes.HOME}>Home</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>Retroboard</BreadcrumbItem>
+        </Breadcrumb>
         <Row>
           <Col sm="4">
             <h3 className="text-center">Start</h3>
