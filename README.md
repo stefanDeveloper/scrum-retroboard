@@ -37,9 +37,7 @@ A boilerplate for Scalable Cross-Platform Desktop Apps based on  <a href="http:/
 
 <div align="center">
 
-[![Build Status][travis-image]][travis-url]
 [![Github Tag][github-tag-image]][github-tag-url]
-
 [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/electron-react-blpt)
 [![Good first issues open][good-first-issue-image]][good-first-issue-url]
 
