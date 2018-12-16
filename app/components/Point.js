@@ -1,9 +1,14 @@
 // @flow
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Container, Row, Col, Button, Form, Input, Label } from 'reactstrap';
 
 type Props = {
-  point: object,
+  point: {
+    id: string,
+    text: string,
+    likes: string
+  },
+  fluidContainer: boolean,
   onChange: () => void,
   onLikeClick: () => void,
   onDislikeClick: () => void,
@@ -19,23 +24,42 @@ export default class Point extends Component<Props> {
       onLikeClick,
       onDislikeClick,
       onDeleteClick,
+      fluidContainer = true,
       point
     } = this.props;
     return (
-      <div>
-        <div>
-          <input type="text" value={point.text} onChange={onChange} />
-        </div>
-        <div>
-          <Button color="info" type="button" onClick={onLikeClick} />
-        </div>
-        <div>
-          <button type="button" onClick={onDislikeClick} />
-        </div>
-        <div>
-          <button type="button" onClick={onDeleteClick} />
-        </div>
-      </div>
+      <Form>
+        <Container fluid={fluidContainer}>
+          <Row>
+            <Col xs="auto">
+              <Input
+                type="text"
+                placeholder="Bulled point"
+                value={point.text}
+                onChange={onChange}
+              />
+            </Col>
+            <Col>
+              <Label className="text-center">{point.likes}</Label>
+            </Col>
+            <Col xs="1">
+              <Button color="link" onClick={onLikeClick}>
+                <i className="fas fa-thumbs-up" />
+              </Button>
+            </Col>
+            <Col xs="1">
+              <Button color="link" onClick={onDislikeClick}>
+                <i className="fas fa-thumbs-down" />
+              </Button>
+            </Col>
+            <Col xs="1">
+              <Button color="link" onClick={onDeleteClick}>
+                <i className="fas fa-times" />
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      </Form>
     );
   }
 }

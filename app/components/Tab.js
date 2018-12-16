@@ -1,13 +1,14 @@
 // @flow
 import React, { Component } from 'react';
-import styles from './Board.css';
+import { Container, Row, Col, Button } from 'reactstrap';
 import PointList from './PointList';
 
 type Props = {
   points: Array,
   pointType: string,
+  fluidContainer: boolean,
   actions: {
-    create: (point) => void,
+    create: point => void,
     incrementLikeAll: () => void,
     decrementLikeAll: () => void
   }
@@ -17,24 +18,36 @@ export default class Tab extends Component<Props> {
   props: Props;
 
   render() {
-    const {
-      points,
-      pointType,
-      actions
-    } = this.props;
+    const { points, pointType, actions, fluidContainer = true } = this.props;
     return (
-      <div>
-        <div>
-            <PointList points={points} actions={actions} pointType={pointType}/>
-        </div> 
-        <div>
-            <button className={styles.btn} data-tclass="btn" type="button"  onClick={() => actions.create(pointType)}><i className="fa fa-arrow-left fa-3x" data-tclass="btn" type="button"/></button>
-        </div>    
-        <div>
-          <button type="button" onClick={() => actions.incrementLikeAll(pointType)} />
-          <button type="button" onClick={() => actions.decrementLikeAll(pointType)} />
-        </div>
-      </div>
+      <Container fluid={fluidContainer}>
+        <Row>
+          <PointList points={points} actions={actions} pointType={pointType} />
+        </Row>
+        <Row>
+          <Col>
+            <Button color="link" onClick={() => actions.create(pointType)}>
+              <i className="fa fa-plus" />
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              color="link"
+              onClick={() => actions.incrementLikeAll(pointType)}
+            >
+              <i className="fa fa-heart" />
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              color="link"
+              onClick={() => actions.decrementLikeAll(pointType)}
+            >
+              <i className="far fa-heart" />
+            </Button>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
