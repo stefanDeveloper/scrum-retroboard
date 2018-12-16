@@ -45,7 +45,7 @@ A boilerplate for Scalable Cross-Platform Desktop Apps based on  <a href="http:/
 
 ## Install
 
-- **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400)**
+- **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/stefanDeveloper/scrum-retroboard/issues/400)**
 
 First, clone the repo via git:
 

@@ -8,75 +8,83 @@ export default function points(
   action: Action
 ) {
   const newPoint = Object.assign({}, action.point);
-  let newState = Object.assign([], state[action.pointType]);
+  const newState = Object.assign([], state[action.pointType]);
   const indexOfpointToDelete = newState.findIndex(
     point => point.id === newPoint.id
   );
   switch (action.type) {
     case types.INCREMENT_LIKE:
-      // Add one like
-      newPoint.likes += 1;
-      newState = [
-        ...newState.filter(point => point.id !== newPoint.id),
-        Object.assign({}, newPoint)
-      ];
-
       return {
         ...state,
-        [action.pointType]: newState
+        [action.pointType]: newState.map(point => {
+          if (point.id !== newPoint.id) {
+            // If the id is not equal, it's the point we want
+            return point;
+          }
+          // If point is zero, it can't be possible to get negative values.
+          newPoint.likes += 1;
+          return {
+            ...point,
+            ...newPoint
+          };
+        })
       };
     case types.DECREMENT_LIKE:
-      // If point is zero, it can't be possible to get negative values.
-      if (newPoint.likes > 0) {
-        newPoint.likes -= 1;
-      }
-
-      newState = [
-        ...newState.filter(point => point.id !== newPoint.id),
-        Object.assign({}, newPoint)
-      ];
       return {
         ...state,
-        [action.pointType]: newState
+        [action.pointType]: newState.map(point => {
+          if (point.id !== newPoint.id) {
+            // If the id is not equal, it's the point we want
+            return point;
+          }
+          // If point is zero, it can't be possible to get negative values.
+          if (newPoint.likes > 0) {
+            newPoint.likes -= 1;
+          }
+          return {
+            ...point,
+            ...newPoint
+          };
+        })
       };
     case types.DECREMENT_LIKE_ALL:
-      // Check if there exists some items
-      if (newState.length === 0) {
-        return state;
-      }
-
-      // newState.map(item => {
-      //  if (item.likes > 0) {
-      //     item.likes -= 1;
-      //  }
-      // });
-
       return {
         ...state,
-        [action.pointType]: newState
+        [action.pointType]: newState.map(point => {
+          // If point is zero, it can't be possible to get negative values.
+          if (newPoint.likes > 0) {
+            newPoint.likes -= 1;
+          }
+          return {
+            ...point
+          };
+        })
       };
     case types.INCREMENT_LIKE_ALL:
-      // Check if there exists some items
-      if (newState.length === 0) {
-        return state;
-      }
-
-      // newState.map(item => {
-      // item.likes += 1;
-      // });
-
       return {
         ...state,
-        [action.pointType]: newState
+        [action.pointType]: newState.map(point => {
+          const currentPoint = point;
+          // If point is zero, it can't be possible to get negative values.
+          currentPoint.likes += 1;
+          return {
+            ...currentPoint
+          };
+        })
       };
     case types.UPDATE_POINT:
-      newState = [
-        ...newState.filter(point => point.id !== newPoint.id),
-        Object.assign({}, newPoint)
-      ];
       return {
         ...state,
-        [action.pointType]: newState
+        [action.pointType]: newState.map(point => {
+          if (point.id !== newPoint.id) {
+            return point;
+          }
+          // If point is zero, it can't be possible to get negative values.
+          return {
+            ...point,
+            newPoint
+          };
+        })
       };
     case types.CREATE_POINT:
       newState.push(
