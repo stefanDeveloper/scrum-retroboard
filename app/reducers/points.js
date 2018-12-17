@@ -51,12 +51,13 @@ export default function points(
       return {
         ...state,
         [action.pointType]: newState.map(point => {
+          const currentPoint = point;
           // If point is zero, it can't be possible to get negative values.
-          if (newPoint.likes > 0) {
-            newPoint.likes -= 1;
+          if (currentPoint.likes > 0) {
+            currentPoint.likes -= 1;
           }
           return {
-            ...point
+            ...currentPoint
           };
         })
       };

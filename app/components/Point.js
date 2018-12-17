@@ -1,6 +1,15 @@
 // @flow
 import React, { Component } from 'react';
-import { Container, Row, Col, Button, Form, Input, Badge } from 'reactstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Form,
+  Input,
+  Badge,
+  ButtonGroup
+} from 'reactstrap';
 
 type Props = {
   point: {
@@ -26,10 +35,10 @@ export default class Point extends Component<Props> {
       point
     } = this.props;
     return (
-      <Form>
-        <Container fluid>
+      <Container>
+        <Form>
           <Row>
-            <Col xs="auto">
+            <Col>
               <Input
                 type="text"
                 placeholder="Bulled point"
@@ -37,29 +46,27 @@ export default class Point extends Component<Props> {
                 onChange={onChange}
               />
             </Col>
-            <Col xs="1">
+            <Col sm={1}>
               <Badge pill>{point.likes}</Badge>
             </Col>
           </Row>
-          <Row style={{ padding: '.5rem' }}>
+          <Row>
             <Col>
-              <Button block color="success" onClick={onLikeClick}>
-                <i className="fas fa-thumbs-up" />
-              </Button>
-            </Col>
-            <Col>
-              <Button block color="danger" onClick={onDislikeClick}>
-                <i className="fas fa-thumbs-down" />
-              </Button>
-            </Col>
-            <Col>
-              <Button block color="danger" onClick={onDeleteClick}>
-                <i className="fas fa-times" />
-              </Button>
+              <ButtonGroup>
+                <Button block color="link" onClick={onLikeClick}>
+                  <i className="fas fa-thumbs-up" />
+                </Button>
+                <Button block color="link" onClick={onDislikeClick}>
+                  <i className="fas fa-thumbs-down" />
+                </Button>
+                <Button block color="link" onClick={onDeleteClick}>
+                  <i className="fas fa-times" />
+                </Button>
+              </ButtonGroup>
             </Col>
           </Row>
-        </Container>
-      </Form>
+        </Form>
+      </Container>
     );
   }
 }
