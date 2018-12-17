@@ -27,7 +27,7 @@ export default class Tab extends Component<Props> {
           <Col>
             <Button
               color="outline-info"
-              block
+              className="align-center"
               onClick={() => actions.create(pointType)}
             >
               <i className="fa fa-plus" />
@@ -36,7 +36,7 @@ export default class Tab extends Component<Props> {
           <Col>
             <Button
               color="outline-success"
-              block
+              className="align-center"
               onClick={() => actions.incrementLikeAll(pointType)}
             >
               <i className="fa fa-heart" />
@@ -45,7 +45,7 @@ export default class Tab extends Component<Props> {
           <Col>
             <Button
               color="outline-danger"
-              block
+              className="align-center"
               onClick={() => actions.decrementLikeAll(pointType)}
             >
               <i className="far fa-heart" />
