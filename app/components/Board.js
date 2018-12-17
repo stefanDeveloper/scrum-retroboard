@@ -38,6 +38,14 @@ export default class Board extends Component<Props> {
         </Breadcrumb>
         <Row>
           <Col sm="4">
+            <h3 className="text-center">Continue</h3>
+            <Tab
+              actions={actions}
+              points={points.continue}
+              pointType={types.CONTINUE_POINT}
+            />
+          </Col>
+          <Col sm="4">
             <h3 className="text-center">Start</h3>
             <Tab
               actions={actions}
@@ -51,14 +59,6 @@ export default class Board extends Component<Props> {
               actions={actions}
               points={points.stop}
               pointType={types.STOP_POINT}
-            />
-          </Col>
-          <Col sm="4">
-            <h3 className="text-center">Continue</h3>
-            <Tab
-              actions={actions}
-              points={points.continue}
-              pointType={types.CONTINUE_POINT}
             />
           </Col>
         </Row>

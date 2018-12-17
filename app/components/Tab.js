@@ -26,7 +26,7 @@ export default class Tab extends Component<Props> {
         <Row style={{ padding: '.5rem' }}>
           <Col>
             <Button
-              color="info"
+              color="outline-info"
               block
               onClick={() => actions.create(pointType)}
             >
@@ -35,7 +35,7 @@ export default class Tab extends Component<Props> {
           </Col>
           <Col>
             <Button
-              color="success"
+              color="outline-success"
               block
               onClick={() => actions.incrementLikeAll(pointType)}
             >
@@ -44,7 +44,7 @@ export default class Tab extends Component<Props> {
           </Col>
           <Col>
             <Button
-              color="danger"
+              color="outline-danger"
               block
               onClick={() => actions.decrementLikeAll(pointType)}
             >

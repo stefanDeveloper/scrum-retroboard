@@ -37,7 +37,7 @@ export default class PointList extends Component<Props> {
         <Container fluid>
           <ListGroup>
             {points.map(point => (
-              <ListGroupItem key={point.id} flush>
+              <ListGroupItem key={point.id}>
                 <Point
                   key={point.id}
                   point={point}
