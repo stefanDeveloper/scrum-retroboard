@@ -107,3 +107,6 @@ main.js.map
 
 .idea
 npm-debug.log.*
+
+# Dist
+./app/dist/*
