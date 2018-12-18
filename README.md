@@ -38,6 +38,7 @@ A Scalable Cross-Platform Desktop Apps based on  <a href="http://electron.atom.i
 <div align="center">
 
 [![Github Tag][github-tag-image]][github-tag-url]
+[![Appveyor Build Status][appveyor-image]][appveyor-url]
 [![Good first issues open][good-first-issue-image]][good-first-issue-url]
 
 </div>
@@ -97,3 +98,5 @@ MIT © [Scrum Retroboard](https://github.com/stefanDeveloper/scrum-retroboard)
 [github-tag-url]: https://github.com/stefanDeveloper/scrum-retroboard/releases/latest
 [good-first-issue-image]: https://img.shields.io/github/issues/stefanDeveloper/scrum-retroboard/good%20first%20issue.svg?label=good%20first%20issues
 [good-first-issue-url]: https://github.com/stefanDeveloper/scrum-retroboard/issues?q=is%3Aopen+is%3Aissue+label%3A"good+first+issue"
+[appveyor-image]: https://ci.appveyor.com/api/projects/status/33f3ukwrwv3xr22a?svg=true
+[appveyor-url]: https://ci.appveyor.com/project/stefanDeveloper/scrum-retroboard/branch/master
