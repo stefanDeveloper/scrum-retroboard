@@ -9,9 +9,9 @@ import {
   Button,
   CardBody,
   CardTitle,
-  Card,
-  CardImg
+  Card
 } from 'reactstrap';
+import styles from './Home.css';
 import routes from '../constants/routes';
 
 type Props = {};
@@ -25,13 +25,7 @@ export default class Home extends Component<Props> {
         <Breadcrumb tag="nav" listTag="div">
           <BreadcrumbItem>Home</BreadcrumbItem>
         </Breadcrumb>
-        <Card>
-          <CardImg
-            top
-            width="100%"
-            src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"
-            alt="Card image cap"
-          />
+        <Card className={styles.card}>
           <CardBody>
             <CardTitle>Scrum Retroboard</CardTitle>
             <CardText>
