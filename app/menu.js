@@ -225,6 +225,21 @@ export default class MenuBuilder {
             click: () => {
               this.mainWindow.close();
             }
+          },
+          {
+            label: '&Print',
+            accelerator: 'Ctrl+P',
+            click: () => {
+              const pdfPath = path.join(os.tmpdir(), 'sprint.pdf');
+              this.mainWindow.webContents.printToPDF({}, (error, data) => {
+                if (error) return;
+
+                fs.writeFile(pdfPath, data, err => {
+                  if (err) return;
+                  shell.openExternal(`file://${pdfPath}`);
+                });
+              });
+            }
           }
         ]
       },
