@@ -1,7 +1,8 @@
 export default {
-    points: {
-      stop: [],
-      start: [],
-      continue: []
-    }
+  points: {
+    title: 'Sprint 01',
+    stop: [],
+    start: [],
+    continue: []
   }
+};
