@@ -91,7 +91,7 @@ export default class MenuBuilder {
 
               fs.writeFile(pdfPath, data, err => {
                 if (err) return;
-                shell.openExternal(`file://${path}`);
+                shell.openExternal(`file://${pdfPath}`);
               });
             });
           }
