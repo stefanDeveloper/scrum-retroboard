@@ -1,5 +1,8 @@
 // @flow
 import { app, Menu, shell, BrowserWindow } from 'electron';
+import os from 'os';
+import fs from 'fs';
+import path from 'path';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -71,6 +74,26 @@ export default class MenuBuilder {
           accelerator: 'Command+Q',
           click: () => {
             app.quit();
+          }
+        }
+      ]
+    };
+    const subMenuFile = {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Print',
+          accelerator: 'Command+P',
+          click: () => {
+            const pdfPath = path.join(os.tmpdir(), 'sprint.pdf');
+            this.mainWindow.webContents.printToPDF({}, (error, data) => {
+              if (error) return;
+
+              fs.writeFile(pdfPath, data, err => {
+                if (err) return;
+                shell.openExternal(`file://${pdfPath}`);
+              });
+            });
           }
         }
       ]
@@ -177,7 +200,14 @@ export default class MenuBuilder {
     const subMenuView =
       process.env.NODE_ENV === 'development' ? subMenuViewDev : subMenuViewProd;
 
-    return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
+    return [
+      subMenuAbout,
+      subMenuFile,
+      subMenuEdit,
+      subMenuView,
+      subMenuWindow,
+      subMenuHelp
+    ];
   }
 
   buildDefaultTemplate() {
@@ -194,6 +224,21 @@ export default class MenuBuilder {
             accelerator: 'Ctrl+W',
             click: () => {
               this.mainWindow.close();
+            }
+          },
+          {
+            label: '&Print',
+            accelerator: 'Ctrl+P',
+            click: () => {
+              const pdfPath = path.join(os.tmpdir(), 'sprint.pdf');
+              this.mainWindow.webContents.printToPDF({}, (error, data) => {
+                if (error) return;
+
+                fs.writeFile(pdfPath, data, err => {
+                  if (err) return;
+                  shell.openExternal(`file://${pdfPath}`);
+                });
+              });
             }
           }
         ]

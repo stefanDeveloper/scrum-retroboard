@@ -3,7 +3,7 @@ import * as types from './actionTypes';
 
 export function update(point, pointType) {
   return {
-    type: types.UPDATE_POINT, 
+    type: types.UPDATE_POINT,
     point,
     pointType
   };
@@ -37,7 +37,7 @@ export function decrementLike(point, pointType) {
     type: types.DECREMENT_LIKE,
     point,
     pointType
- };
+  };
 }
 
 export function incrementLikeAll(pointType) {
@@ -51,5 +51,12 @@ export function decrementLikeAll(pointType) {
   return {
     type: types.DECREMENT_LIKE_ALL,
     pointType
- };
+  };
+}
+
+export function updateTitle(title) {
+  return {
+    type: types.UPDATE_TITLE,
+    title
+  };
 }

@@ -108,6 +108,11 @@ export default function points(
         ...state,
         [action.pointType]: newState
       };
+    case types.UPDATE_TITLE:
+      return {
+        ...state,
+        title: action.title
+      };
     default:
       return state;
   }

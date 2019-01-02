@@ -1,8 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import routes from '../constants/routes';
+import { Container, Row, Col, Input } from 'reactstrap';
+import styles from './Board.css';
 import * as types from './TabTypes';
 import Tab from './Tab';
 
@@ -19,24 +18,36 @@ type Props = {
     incrementLike: point => void,
     decrementLike: point => void,
     incrementLikeAll: () => void,
-    decrementLikeAll: () => void
+    decrementLikeAll: () => void,
+    updateTitle: value => void
   }
 };
 
 export default class Board extends Component<Props> {
   props: Props;
 
+  textChanged(event) {
+    const { value } = event.target;
+    const { actions } = this.props;
+    actions.updateTitle(value);
+  }
+
   render() {
     const { points, actions } = this.props;
     return (
       <Container fluid>
-        <Breadcrumb tag="nav" listTag="div">
-          <BreadcrumbItem>
-            <Link to={routes.HOME}>Home</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem active>Retroboard</BreadcrumbItem>
-        </Breadcrumb>
-        <Row>
+        <Row style={{ margin: '.5rem' }}>
+          <Col>
+            <Input
+              type="text"
+              className={styles.headline}
+              value={points.title}
+              onChange={event => this.textChanged(event)}
+            />
+            <hr className="my-2" />
+          </Col>
+        </Row>
+        <Row style={{ margin: '.5rem' }}>
           <Col sm="4">
             <h3 className="text-center">Continue</h3>
             <Tab
