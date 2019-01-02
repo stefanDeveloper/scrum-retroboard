@@ -1,0 +1,8 @@
+.row-textarea {
+  max-width: 100%;
+}
+@media print {
+  .row-textarea {
+    max-width: 25%;
+  }
+}
