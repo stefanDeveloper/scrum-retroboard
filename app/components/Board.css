@@ -13,3 +13,19 @@
 .row {
   margin: 0.5rem;
 }
+
+.like-btn {
+  color: #28a745;
+  float: right !important;
+  opacity: 0.6;
+}
+
+.like-btn:hover {
+  color: #28a745;
+  opacity: 0.8;
+}
+@media print {
+  .like-btn {
+    display: none !important;
+  }
+}
