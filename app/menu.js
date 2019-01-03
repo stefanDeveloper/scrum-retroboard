@@ -48,17 +48,17 @@ export default class MenuBuilder {
 
   buildDarwinTemplate() {
     const subMenuAbout = {
-      label: 'Electron',
+      label: 'Retroboard',
       submenu: [
         {
-          label: 'About ElectronReact',
+          label: 'About Electron',
           selector: 'orderFrontStandardAboutPanel:'
         },
         { type: 'separator' },
         { label: 'Services', submenu: [] },
         { type: 'separator' },
         {
-          label: 'Hide ElectronReact',
+          label: 'Hide Electron',
           accelerator: 'Command+H',
           selector: 'hide:'
         },
@@ -81,8 +81,23 @@ export default class MenuBuilder {
     const subMenuFile = {
       label: 'File',
       submenu: [
+        { label: 'New Sprint', accelerator: 'Command+N', selector: 'undo:' },
+        { type: 'separator' },
+        { label: 'Open...', accelerator: 'Command+O', selector: 'undo:' },
         {
-          label: 'Print',
+          label: 'Open Recent',
+          submenu: []
+        },
+        { type: 'separator' },
+        { label: 'Save', accelerator: 'Command+S', selector: 'undo:' },
+        {
+          label: 'Save As...',
+          accelerator: 'Shift+Command+S',
+          selector: 'undo:'
+        },
+        { type: 'separator' },
+        {
+          label: 'Print...',
           accelerator: 'Command+P',
           click: () => {
             const pdfPath = path.join(os.tmpdir(), 'sprint.pdf');
@@ -171,27 +186,25 @@ export default class MenuBuilder {
         {
           label: 'Learn More',
           click() {
-            shell.openExternal('http://electron.atom.io');
+            shell.openExternal(
+              'https://github.com/stefanDeveloper/scrum-retroboard'
+            );
           }
         },
         {
           label: 'Documentation',
           click() {
             shell.openExternal(
-              'https://github.com/atom/electron/tree/master/docs#readme'
+              'https://github.com/stefanDeveloper/scrum-retroboard/blob/master/README.md'
             );
-          }
-        },
-        {
-          label: 'Community Discussions',
-          click() {
-            shell.openExternal('https://discuss.atom.io/c/electron');
           }
         },
         {
           label: 'Search Issues',
           click() {
-            shell.openExternal('https://github.com/atom/electron/issues');
+            shell.openExternal(
+              'https://github.com/stefanDeveloper/scrum-retroboard/issues'
+            );
           }
         }
       ]

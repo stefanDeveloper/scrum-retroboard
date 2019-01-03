@@ -24,7 +24,7 @@ export default class Tab extends Component<Props> {
         <Row>
           <PointList points={points} actions={actions} pointType={pointType} />
         </Row>
-        <Row style={{ padding: '.5rem' }}>
+        <Row style={{ padding: '.5rem' }} className="no-print">
           <Col className={styles.button}>
             <Button
               color="outline-info"

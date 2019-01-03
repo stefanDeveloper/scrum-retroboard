@@ -1,13 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 import {
-  Container,
-  Row,
-  Col,
+  CardTitle,
   Button,
   Input,
   Badge,
-  ButtonGroup
+  Card,
+  ButtonGroup,
+  CardBody,
+  CardText
 } from 'reactstrap';
 import styles from './Point.css';
 
@@ -35,36 +36,37 @@ export default class Point extends Component<Props> {
       point
     } = this.props;
     return (
-      <Container>
-        <Row className={styles['row-textarea']}>
-          <Col sm={11}>
+      <Card className={styles.point}>
+        <CardBody>
+          <CardTitle>
             <Input
               type="textarea"
               placeholder="Bulled point"
               value={point.text}
               onChange={onChange}
+              className={styles.textarea}
             />
-          </Col>
-          <Col sm={1}>
+            <Button
+              color="link"
+              onClick={onDeleteClick}
+              className={styles['delete-btn']}
+            >
+              <i className="fas fa-trash" />
+            </Button>
+          </CardTitle>
+          <CardText>
             <Badge pill>{point.likes}</Badge>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <ButtonGroup>
-              <Button block color="link" onClick={onLikeClick}>
-                <i className="fas fa-thumbs-up" />
-              </Button>
-              <Button block color="link" onClick={onDislikeClick}>
-                <i className="fas fa-thumbs-down" />
-              </Button>
-              <Button block color="link" onClick={onDeleteClick}>
-                <i className="fas fa-times" />
-              </Button>
-            </ButtonGroup>
-          </Col>
-        </Row>
-      </Container>
+          </CardText>
+        </CardBody>
+        <ButtonGroup className="no-print">
+          <Button block color="link" onClick={onLikeClick}>
+            <i className="fas fa-thumbs-up" />
+          </Button>
+          <Button block color="link" onClick={onDislikeClick}>
+            <i className="fas fa-thumbs-down" />
+          </Button>
+        </ButtonGroup>
+      </Card>
     );
   }
 }

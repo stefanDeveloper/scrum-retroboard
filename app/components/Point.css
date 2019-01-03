@@ -1,8 +1,35 @@
-.row-textarea {
-  max-width: 100%;
+.point {
+  margin: 0.8rem;
 }
+
+.delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.5;
+  background-color: transparent;
+  border: 0 solid;
+  padding-right: 8px;
+}
+
+.delete-btn:hover {
+  color: #000;
+  opacity: 0.6;
+}
+
+.textarea {
+  margin-top: 0.8rem;
+}
+
 @media print {
-  .row-textarea {
-    max-width: 25%;
+  .textarea {
+    border: 0 solid;
+  }
+  .delete-btn {
+    display: none !important;
   }
 }
