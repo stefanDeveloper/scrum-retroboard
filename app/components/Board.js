@@ -36,7 +36,7 @@ export default class Board extends Component<Props> {
     const { points, actions } = this.props;
     return (
       <Container fluid>
-        <Row style={{ margin: '.5rem' }}>
+        <Row className={styles.row}>
           <Col>
             <Input
               type="text"
@@ -47,7 +47,7 @@ export default class Board extends Component<Props> {
             <hr className="my-2" />
           </Col>
         </Row>
-        <Row style={{ margin: '.5rem' }}>
+        <Row className={styles.row}>
           <Col sm="4">
             <h3 className="text-center">Continue</h3>
             <Tab
