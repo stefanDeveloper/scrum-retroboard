@@ -32,24 +32,9 @@ export function incrementLike(point, pointType) {
   };
 }
 
-export function decrementLike(point, pointType) {
-  return {
-    type: types.DECREMENT_LIKE,
-    point,
-    pointType
-  };
-}
-
 export function incrementLikeAll(pointType) {
   return {
     type: types.INCREMENT_LIKE_ALL,
-    pointType
-  };
-}
-
-export function decrementLikeAll(pointType) {
-  return {
-    type: types.DECREMENT_LIKE_ALL,
     pointType
   };
 }
