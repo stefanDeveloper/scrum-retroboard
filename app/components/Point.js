@@ -6,7 +6,6 @@ import {
   Input,
   Badge,
   Card,
-  ButtonGroup,
   CardBody,
   CardText
 } from 'reactstrap';
@@ -20,7 +19,6 @@ type Props = {
   },
   onChange: () => void,
   onLikeClick: () => void,
-  onDislikeClick: () => void,
   onDeleteClick: () => void
 };
 
@@ -28,20 +26,14 @@ export default class Point extends Component<Props> {
   props: Props;
 
   render() {
-    const {
-      onChange,
-      onLikeClick,
-      onDislikeClick,
-      onDeleteClick,
-      point
-    } = this.props;
+    const { onChange, onLikeClick, onDeleteClick, point } = this.props;
     return (
       <Card className={styles.point}>
-        <CardBody>
-          <CardTitle>
+        <CardBody className={styles['card-body']}>
+          <CardTitle className={styles['card-title']}>
             <Input
               type="textarea"
-              placeholder="Bulled point"
+              placeholder="bullet point..."
               value={point.text}
               onChange={onChange}
               className={styles.textarea}
@@ -54,18 +46,19 @@ export default class Point extends Component<Props> {
               <i className="fas fa-trash" />
             </Button>
           </CardTitle>
-          <CardText>
-            <Badge pill>{point.likes}</Badge>
+          <CardText className={styles['card-text']}>
+            <Button
+              color="link"
+              className={styles['like-btn']}
+              onClick={onLikeClick}
+            >
+              <i className="far fa-thumbs-up" />
+            </Button>
+            <Badge pill className={styles.badge}>
+              + {point.likes}
+            </Badge>
           </CardText>
         </CardBody>
-        <ButtonGroup className="no-print">
-          <Button block color="link" onClick={onLikeClick}>
-            <i className="fas fa-thumbs-up" />
-          </Button>
-          <Button block color="link" onClick={onDislikeClick}>
-            <i className="fas fa-thumbs-down" />
-          </Button>
-        </ButtonGroup>
       </Card>
     );
   }
