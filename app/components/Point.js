@@ -54,7 +54,7 @@ export default class Point extends Component<Props> {
             >
               <i className="far fa-thumbs-up" />
             </Button>
-            <Badge pill className={styles.badge}>
+            <Badge pill color="primary" className={styles.badge}>
               + {point.likes}
             </Badge>
           </CardText>
