@@ -45,3 +45,16 @@ export function updateTitle(title) {
     title
   };
 }
+
+export function load(points) {
+  return {
+    type: types.LOAD,
+    points
+  };
+}
+
+export function newSprint() {
+  return {
+    type: types.NEW_SPRINT
+  };
+}
