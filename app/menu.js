@@ -1,11 +1,13 @@
 // @flow
-import { app, Menu, shell, BrowserWindow } from 'electron';
+import { app, Menu, shell, BrowserWindow, dialog } from 'electron';
 import os from 'os';
 import fs from 'fs';
 import path from 'path';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
+
+  filePath: string;
 
   constructor(mainWindow: BrowserWindow) {
     this.mainWindow = mainWindow;
@@ -46,6 +48,70 @@ export default class MenuBuilder {
     });
   }
 
+  openFile() {
+    dialog.showOpenDialog(
+      {
+        title: 'Open Sprint',
+        filters: [{ name: 'json', extensions: ['json'] }],
+        properties: ['openFile']
+      },
+      fileNames => {
+        // fileNames is an array that contains all the selected
+        if (fileNames === undefined) {
+          return;
+        }
+        const filepath = fileNames[0];
+
+        fs.readFile(filepath, 'utf-8', (err, data) => {
+          if (err) {
+            return;
+          }
+          this.mainWindow.webContents.send('open-file', data);
+        });
+      }
+    );
+  }
+
+  saveAs() {
+    dialog.showSaveDialog(
+      {
+        title: 'Save Sprint',
+        filters: [{ name: 'json', extensions: ['json'] }],
+        defaultPath: '*/Sprint-new'
+      },
+      fileName => {
+        if (fileName === undefined) {
+          return;
+        }
+        this.filePath = fileName;
+        this.mainWindow.webContents.send('save-file', this.filePath);
+      }
+    );
+  }
+
+  save() {
+    if (this.filePath) {
+      this.mainWindow.webContents.send('save-file', [this.filePath]);
+    }
+    this.saveAs();
+  }
+
+  newSprint() {
+    this.mainWindow.webContents.send('new-sprint');
+  }
+
+  print() {
+    const pdfPath = path.join(os.tmpdir(), 'sprint.pdf');
+    this.mainWindow.webContents.printToPDF({}, (error, data) => {
+      if (error) return;
+
+      fs.writeFile(pdfPath, data, err => {
+        if (err) return;
+        shell.openExternal(`file://${pdfPath}`);
+      });
+    });
+  }
+
   buildDarwinTemplate() {
     const subMenuAbout = {
       label: 'Retroboard',
@@ -78,41 +144,45 @@ export default class MenuBuilder {
         }
       ]
     };
+
     const subMenuFile = {
       label: 'File',
       submenu: [
-        { label: 'New Sprint', accelerator: 'Command+N', selector: 'undo:' },
+        {
+          label: 'New Sprint',
+          accelerator: 'Command+N',
+          click: () => this.newSprint()
+        },
         { type: 'separator' },
-        { label: 'Open...', accelerator: 'Command+O', selector: 'undo:' },
+        {
+          label: 'Open...',
+          accelerator: 'Command+O',
+          click: () => this.openFile()
+        },
         {
           label: 'Open Recent',
           submenu: []
         },
         { type: 'separator' },
-        { label: 'Save', accelerator: 'Command+S', selector: 'undo:' },
+        {
+          label: 'Save',
+          accelerator: 'Command+S',
+          click: () => this.openFile()
+        },
         {
           label: 'Save As...',
           accelerator: 'Shift+Command+S',
-          selector: 'undo:'
+          click: () => this.saveAs()
         },
         { type: 'separator' },
         {
           label: 'Print...',
           accelerator: 'Command+P',
-          click: () => {
-            const pdfPath = path.join(os.tmpdir(), 'sprint.pdf');
-            this.mainWindow.webContents.printToPDF({}, (error, data) => {
-              if (error) return;
-
-              fs.writeFile(pdfPath, data, err => {
-                if (err) return;
-                shell.openExternal(`file://${pdfPath}`);
-              });
-            });
-          }
+          click: () => this.print()
         }
       ]
     };
+
     const subMenuEdit = {
       label: 'Edit',
       submenu: [
@@ -129,6 +199,7 @@ export default class MenuBuilder {
         }
       ]
     };
+
     const subMenuViewDev = {
       label: 'View',
       submenu: [
@@ -155,6 +226,7 @@ export default class MenuBuilder {
         }
       ]
     };
+
     const subMenuViewProd = {
       label: 'View',
       submenu: [
@@ -167,6 +239,7 @@ export default class MenuBuilder {
         }
       ]
     };
+
     const subMenuWindow = {
       label: 'Window',
       submenu: [
@@ -180,6 +253,7 @@ export default class MenuBuilder {
         { label: 'Bring All to Front', selector: 'arrangeInFront:' }
       ]
     };
+
     const subMenuHelp = {
       label: 'Help',
       submenu: [
@@ -242,17 +316,7 @@ export default class MenuBuilder {
           {
             label: '&Print',
             accelerator: 'Ctrl+P',
-            click: () => {
-              const pdfPath = path.join(os.tmpdir(), 'sprint.pdf');
-              this.mainWindow.webContents.printToPDF({}, (error, data) => {
-                if (error) return;
-
-                fs.writeFile(pdfPath, data, err => {
-                  if (err) return;
-                  shell.openExternal(`file://${pdfPath}`);
-                });
-              });
-            }
+            click: () => this.print()
           }
         ]
       },

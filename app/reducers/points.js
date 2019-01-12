@@ -90,6 +90,10 @@ export default function points(
         ...state,
         title: action.title
       };
+    case types.LOAD:
+      return action.points;
+    case types.NEW_SPRINT:
+      return initialState.points;
     default:
       return state;
   }
