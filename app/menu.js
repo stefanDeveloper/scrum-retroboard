@@ -61,6 +61,7 @@ export default class MenuBuilder {
           return;
         }
         const filepath = fileNames[0];
+        this.filePath = fileNames;
 
         fs.readFile(filepath, 'utf-8', (err, data) => {
           if (err) {
@@ -90,10 +91,11 @@ export default class MenuBuilder {
   }
 
   save() {
-    if (this.filePath) {
-      this.mainWindow.webContents.send('save-file', [this.filePath]);
+    if (this.filePath && this.filePath.length > 0) {
+      this.mainWindow.webContents.send('save-file', this.filePath);
+    } else {
+      this.saveAs();
     }
-    this.saveAs();
   }
 
   newSprint() {
@@ -167,7 +169,7 @@ export default class MenuBuilder {
         {
           label: 'Save',
           accelerator: 'Command+S',
-          click: () => this.openFile()
+          click: () => this.save()
         },
         {
           label: 'Save As...',
