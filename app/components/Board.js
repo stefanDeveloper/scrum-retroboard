@@ -1,9 +1,10 @@
 // @flow
 import React, { Component } from 'react';
-import { Container, Row, Col, Input, Button } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import styles from './Board.css';
 import { CONTINUE_POINT, STOP_POINT, START_POINT } from './TabTypes';
 import Tab from './Tab';
+import Title from './Title';
 
 type Props = {
   points: {
@@ -21,12 +22,6 @@ type Props = {
 
 export default class Board extends Component<Props> {
   props: Props;
-
-  textChanged(event) {
-    const { value } = event.target;
-    const { actions } = this.props;
-    actions.updateTitle(value);
-  }
 
   render() {
     const {
@@ -47,11 +42,9 @@ export default class Board extends Component<Props> {
       <Container fluid>
         <Row className={styles.row}>
           <Col>
-            <Input
-              type="text"
-              className={styles.headline}
-              value={points.title}
-              onChange={event => this.textChanged(event)}
+            <Title
+              title={points.title}
+              updateTitle={() => actions.updateTitle()}
             />
           </Col>
         </Row>
