@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
+import { ipcRenderer } from 'electron';
+import fs from 'fs';
 import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
@@ -26,3 +28,20 @@ if (module.hot) {
     );
   });
 }
+
+ipcRenderer.on('open-file', (event, data) => {
+  const points = JSON.parse(data);
+  store.dispatch({ type: 'LOAD', points });
+});
+
+ipcRenderer.on('new-sprint', () => {
+  store.dispatch({ type: 'NEW_SPRINT' });
+});
+
+ipcRenderer.on('save-file', (event, path) => {
+  const { points } = store.getState();
+  console.log(points);
+  fs.writeFile(path, JSON.stringify(points), () => {
+    console.log('Juhuu');
+  });
+});

@@ -9,6 +9,14 @@ export default function points(
 ) {
   const newPoint = Object.assign({}, action.point);
   const newState = Object.assign([], state[action.pointType]);
+  const colors = [
+    'primary',
+    'secondary',
+    'success',
+    'danger',
+    'warning',
+    'dark'
+  ];
   const indexOfpointToDelete = newState.findIndex(
     point => point.id === newPoint.id
   );
@@ -26,38 +34,6 @@ export default function points(
           return {
             ...point,
             ...newPoint
-          };
-        })
-      };
-    case types.DECREMENT_LIKE:
-      return {
-        ...state,
-        [action.pointType]: newState.map(point => {
-          if (point.id !== newPoint.id) {
-            // If the id is not equal, it's the point we want
-            return point;
-          }
-          // If point is zero, it can't be possible to get negative values.
-          if (newPoint.likes > 0) {
-            newPoint.likes -= 1;
-          }
-          return {
-            ...point,
-            ...newPoint
-          };
-        })
-      };
-    case types.DECREMENT_LIKE_ALL:
-      return {
-        ...state,
-        [action.pointType]: newState.map(point => {
-          const currentPoint = point;
-          // If point is zero, it can't be possible to get negative values.
-          if (currentPoint.likes > 0) {
-            currentPoint.likes -= 1;
-          }
-          return {
-            ...currentPoint
           };
         })
       };
@@ -94,7 +70,8 @@ export default function points(
           {
             id: `point${Date.now()}`,
             text: '',
-            likes: 0
+            likes: 0,
+            color: colors[Math.floor(Math.random() * colors.length)]
           }
         )
       );
@@ -113,6 +90,10 @@ export default function points(
         ...state,
         title: action.title
       };
+    case types.LOAD:
+      return action.points;
+    case types.NEW_SPRINT:
+      return initialState.points;
     default:
       return state;
   }
