@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import { Container, Row, Col, Input } from 'reactstrap';
+import { Container, Row, Col, Input, Button } from 'reactstrap';
 import styles from './Board.css';
-import * as types from './TabTypes';
+import { CONTINUE_POINT, STOP_POINT, START_POINT } from './TabTypes';
 import Tab from './Tab';
 
 type Props = {
@@ -11,15 +11,11 @@ type Props = {
     stop: Array,
     continue: Array
   },
+  tabs: Array,
   actions: {
-    update: point => void,
-    create: point => void,
-    remove: point => void,
-    incrementLike: point => void,
-    decrementLike: point => void,
-    incrementLikeAll: () => void,
-    decrementLikeAll: () => void,
-    updateTitle: value => void
+    create: (pointType: string) => void,
+    incrementLikeAll: (pointType: string) => void,
+    updateTitle: (value: string) => void
   }
 };
 
@@ -33,10 +29,23 @@ export default class Board extends Component<Props> {
   }
 
   render() {
-    const { points, actions } = this.props;
+    const {
+      points,
+      actions,
+      tabs = [
+        {
+          id: 1,
+          tabType: CONTINUE_POINT,
+          title: 'Continue',
+          points: points.continue
+        },
+        { id: 2, tabType: START_POINT, title: 'Start', points: points.start },
+        { id: 3, tabType: STOP_POINT, title: 'Stop', points: points.stop }
+      ]
+    } = this.props;
     return (
       <Container fluid>
-        <Row style={{ margin: '.5rem' }}>
+        <Row className={styles.row}>
           <Col>
             <Input
               type="text"
@@ -44,34 +53,36 @@ export default class Board extends Component<Props> {
               value={points.title}
               onChange={event => this.textChanged(event)}
             />
-            <hr className="my-2" />
           </Col>
         </Row>
-        <Row style={{ margin: '.5rem' }}>
-          <Col sm="4">
-            <h3 className="text-center">Continue</h3>
-            <Tab
-              actions={actions}
-              points={points.continue}
-              pointType={types.CONTINUE_POINT}
-            />
-          </Col>
-          <Col sm="4">
-            <h3 className="text-center">Start</h3>
-            <Tab
-              actions={actions}
-              points={points.start}
-              pointType={types.START_POINT}
-            />
-          </Col>
-          <Col sm="4">
-            <h3 className="text-center">Stop</h3>
-            <Tab
-              actions={actions}
-              points={points.stop}
-              pointType={types.STOP_POINT}
-            />
-          </Col>
+        <Row className={styles.row}>
+          {tabs.map(tab => (
+            <Col sm="4" key={tab.id}>
+              <h3>
+                {tab.title}
+                <Button
+                  color="link"
+                  className="no-print"
+                  onClick={() => actions.create(tab.tabType)}
+                >
+                  <i className="fa fa-plus" />
+                </Button>
+                <Button
+                  color="link"
+                  className={styles['like-btn']}
+                  onClick={() => actions.incrementLikeAll(tab.tabType)}
+                >
+                  <i className="fa fa-heart" />
+                </Button>
+              </h3>
+              <hr className="my-2" />
+              <Tab
+                actions={actions}
+                points={tab.points}
+                pointType={tab.tabType}
+              />
+            </Col>
+          ))}
         </Row>
       </Container>
     );

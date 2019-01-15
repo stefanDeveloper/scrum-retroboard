@@ -1,13 +1,13 @@
 // @flow
 import React, { Component } from 'react';
 import {
-  Container,
-  Row,
-  Col,
+  CardTitle,
   Button,
   Input,
   Badge,
-  ButtonGroup
+  Card,
+  CardBody,
+  CardText
 } from 'reactstrap';
 import styles from './Point.css';
 
@@ -19,7 +19,6 @@ type Props = {
   },
   onChange: () => void,
   onLikeClick: () => void,
-  onDislikeClick: () => void,
   onDeleteClick: () => void
 };
 
@@ -27,44 +26,40 @@ export default class Point extends Component<Props> {
   props: Props;
 
   render() {
-    const {
-      onChange,
-      onLikeClick,
-      onDislikeClick,
-      onDeleteClick,
-      point
-    } = this.props;
+    const { onChange, onLikeClick, onDeleteClick, point } = this.props;
     return (
-      <Container>
-        <Row className={styles['row-textarea']}>
-          <Col sm={11}>
+      <Card className={styles.point}>
+        <CardBody className={styles['card-body']}>
+          <CardTitle className={styles['card-title']}>
             <Input
               type="textarea"
-              placeholder="Bulled point"
+              placeholder="bullet point..."
               value={point.text}
               onChange={onChange}
+              className={styles.textarea}
             />
-          </Col>
-          <Col sm={1}>
-            <Badge pill>{point.likes}</Badge>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <ButtonGroup>
-              <Button block color="link" onClick={onLikeClick}>
-                <i className="fas fa-thumbs-up" />
-              </Button>
-              <Button block color="link" onClick={onDislikeClick}>
-                <i className="fas fa-thumbs-down" />
-              </Button>
-              <Button block color="link" onClick={onDeleteClick}>
-                <i className="fas fa-times" />
-              </Button>
-            </ButtonGroup>
-          </Col>
-        </Row>
-      </Container>
+            <Button
+              color="link"
+              onClick={onDeleteClick}
+              className={styles['delete-btn']}
+            >
+              <i className="fas fa-trash" />
+            </Button>
+          </CardTitle>
+          <CardText className={styles['card-text']}>
+            <Button
+              color="link"
+              className={styles['like-btn']}
+              onClick={onLikeClick}
+            >
+              <i className="far fa-thumbs-up" />
+            </Button>
+            <Badge pill color="primary" className={styles.badge}>
+              + {point.likes}
+            </Badge>
+          </CardText>
+        </CardBody>
+      </Card>
     );
   }
 }
