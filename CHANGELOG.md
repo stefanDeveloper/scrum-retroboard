@@ -7,7 +7,6 @@ This release contains major changes on the UI, dependencies and avatars for tabs
 - **Dependency update:** babel, react-hot, ...
 - **Save and Load** Saving and loading of the current sprint as a Json file [#5](https://github.com/stefanDeveloper/scrum-retroboard/issues/5)
 - **UI Enhancement** Major changes on the ui: Removed dislike buttons, bulled point styling
-- **Avatar Image** For [#4](https://github.com/stefanDeveloper/scrum-retroboard/issues/4)
 
 # 0.0.2 (2019.1.04)
 
