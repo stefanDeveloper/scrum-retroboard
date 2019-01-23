@@ -94,6 +94,11 @@ export default function points(
       return action.points;
     case types.NEW_SPRINT:
       return initialState.points;
+    case types.UPDATE_IMAGE:
+      return {
+        ...state,
+        image: action.image
+      };
     default:
       return state;
   }

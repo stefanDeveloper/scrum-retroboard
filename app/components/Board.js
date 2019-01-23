@@ -5,6 +5,7 @@ import styles from './Board.css';
 import { CONTINUE_POINT, STOP_POINT, START_POINT } from './TabTypes';
 import Tab from './Tab';
 import Title from './Title';
+import Avatar from './Avatar';
 
 type Props = {
   points: {
@@ -16,7 +17,8 @@ type Props = {
   actions: {
     create: (pointType: string) => void,
     incrementLikeAll: (pointType: string) => void,
-    updateTitle: (value: string) => void
+    updateTitle: (value: string) => void,
+    updateImage: (image: object, pointType: string) => void
   }
 };
 
@@ -51,6 +53,10 @@ export default class Board extends Component<Props> {
         <Row className={styles.row}>
           {tabs.map(tab => (
             <Col sm="4" key={tab.id}>
+              <Avatar
+                image={points.image}
+                onChange={image => actions.updateImage(image, tab.tabType)}
+              />
               <h3>
                 {tab.title}
                 <Button
