@@ -58,3 +58,18 @@ export function newSprint() {
     type: types.NEW_SPRINT
   };
 }
+
+export function updateImage(image, pointType) {
+  return {
+    type: types.UPDATE_IMAGE,
+    image,
+    pointType
+  };
+}
+
+export function deleteImage(pointType) {
+  return {
+    type: types.DELETE_IMAGE,
+    pointType
+  };
+}

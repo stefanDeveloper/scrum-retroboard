@@ -94,6 +94,16 @@ export default function points(
       return action.points;
     case types.NEW_SPRINT:
       return initialState.points;
+    case types.UPDATE_IMAGE:
+      return {
+        ...state,
+        [`image-${action.pointType}`]: URL.createObjectURL(action.image)
+      };
+    case types.DELETE_IMAGE:
+      return {
+        ...state,
+        [`image-${action.pointType}`]: ''
+      };
     default:
       return state;
   }
