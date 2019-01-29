@@ -30,8 +30,12 @@ if (module.hot) {
 }
 
 ipcRenderer.on('open-file', (event, data) => {
-  const points = JSON.parse(data);
-  store.dispatch({ type: 'LOAD', points });
+  try {
+    const points = JSON.parse(data);
+    store.dispatch({ type: 'LOAD', points });
+  } catch (e) {
+    // TODO Handle error
+  }
 });
 
 ipcRenderer.on('new-sprint', () => {
@@ -40,8 +44,7 @@ ipcRenderer.on('new-sprint', () => {
 
 ipcRenderer.on('save-file', (event, path) => {
   const { points } = store.getState();
-  console.log(points);
   fs.writeFile(path, JSON.stringify(points), () => {
-    console.log('Juhuu');
+    // TODO handle error
   });
 });

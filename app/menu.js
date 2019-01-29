@@ -56,14 +56,11 @@ export default class MenuBuilder {
         properties: ['openFile']
       },
       fileNames => {
-        // fileNames is an array that contains all the selected
         if (fileNames === undefined) {
           return;
         }
-        const filepath = fileNames[0];
-        this.filePath = fileNames;
-
-        fs.readFile(filepath, 'utf-8', (err, data) => {
+        this.filePath = fileNames[0].toString();
+        fs.readFile(this.filePath, 'utf-8', (err, data) => {
           if (err) {
             return;
           }
@@ -300,21 +297,41 @@ export default class MenuBuilder {
   }
 
   buildDefaultTemplate() {
-    const templateDefault = [
+    return [
       {
         label: '&File',
         submenu: [
           {
-            label: '&Open',
-            accelerator: 'Ctrl+O'
-          },
-          {
-            label: '&Close',
-            accelerator: 'Ctrl+W',
+            label: '&New Sprint',
+            accelerator: 'Ctrl+N',
             click: () => {
-              this.mainWindow.close();
+              this.newSprint();
             }
           },
+          { type: 'separator' },
+          {
+            label: '&Open',
+            accelerator: 'Ctrl+O',
+            click: () => {
+              this.openFile();
+            }
+          },
+          { type: 'separator' },
+          {
+            label: '&Save',
+            accelerator: 'Ctrl+S',
+            click: () => {
+              this.save();
+            }
+          },
+          {
+            label: '&Save As...',
+            accelerator: 'Shift+Ctrl+S',
+            click: () => {
+              this.save();
+            }
+          },
+          { type: 'separator' },
           {
             label: '&Print',
             accelerator: 'Ctrl+P',
@@ -395,7 +412,5 @@ export default class MenuBuilder {
         ]
       }
     ];
-
-    return templateDefault;
   }
 }
