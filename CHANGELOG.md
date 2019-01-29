@@ -1,3 +1,13 @@
+# 0.1.1 (2018.1.29)
+
+This release contains the new function to add individually images to each tab
+
+### Features
+
+- **Drap and Drop** Drap and Drop an image, which will be displayed
+- **Save and Load** Add an image, which will be reloaded if it's exists
+- **Remove** All images can be removed individually
+
 # 0.1.0 (2018.1.15)
 
 This release contains major changes on the UI, dependencies and avatars for tabs.
