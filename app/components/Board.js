@@ -18,7 +18,8 @@ type Props = {
     create: (pointType: string) => void,
     incrementLikeAll: (pointType: string) => void,
     updateTitle: (value: string) => void,
-    updateImage: (image: object, pointType: string) => void
+    updateImage: (image: object, pointType: string) => void,
+    deleteImage: (pointType: string) => void
   }
 };
 
@@ -54,8 +55,9 @@ export default class Board extends Component<Props> {
           {tabs.map(tab => (
             <Col sm="4" key={tab.id}>
               <Avatar
-                image={points.image}
+                image={points[`image-${tab.tabType}`]}
                 onChange={image => actions.updateImage(image, tab.tabType)}
+                onDelete={() => actions.deleteImage(tab.tabType)}
               />
               <h3>
                 {tab.title}

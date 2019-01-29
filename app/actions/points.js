@@ -66,3 +66,10 @@ export function updateImage(image, pointType) {
     pointType
   };
 }
+
+export function deleteImage(pointType) {
+  return {
+    type: types.DELETE_IMAGE,
+    pointType
+  };
+}

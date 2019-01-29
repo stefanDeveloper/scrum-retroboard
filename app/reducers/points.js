@@ -97,7 +97,12 @@ export default function points(
     case types.UPDATE_IMAGE:
       return {
         ...state,
-        image: action.image
+        [`image-${action.pointType}`]: action.image
+      };
+    case types.DELETE_IMAGE:
+      return {
+        ...state,
+        [`image-${action.pointType}`]: ''
       };
     default:
       return state;
