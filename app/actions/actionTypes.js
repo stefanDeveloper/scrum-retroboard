@@ -7,3 +7,4 @@ export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const LOAD = 'LOAD';
 export const NEW_SPRINT = 'NEW_SPRINT';
 export const UPDATE_IMAGE = 'UPDATE_IMAGE';
+export const DELETE_IMAGE = 'DELETE_IMAGE';
