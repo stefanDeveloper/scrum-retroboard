@@ -7,6 +7,7 @@ This release contains the new function to add individually images to each tab
 - **Drap and Drop** Drap and Drop an image, which will be displayed
 - **Save and Load** Add an image, which will be reloaded if it's exists
 - **Remove** All images can be removed individually
+- **Add Dependencies** react-avatar-editor: 11.0.4, react-dropzone: 8.0.3
 
 # 0.1.0 (2018.1.15)
 
