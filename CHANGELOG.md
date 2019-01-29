@@ -1,6 +1,6 @@
 # 0.1.1 (2018.1.29)
 
-This release contains the new function to add individually images to each tab
+This release contains the new function to add individually images to each tab, see Issue [#4](https://github.com/stefanDeveloper/scrum-retroboard/issues/4)
 
 ### Features
 
