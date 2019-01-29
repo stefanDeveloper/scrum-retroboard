@@ -97,7 +97,7 @@ export default function points(
     case types.UPDATE_IMAGE:
       return {
         ...state,
-        [`image-${action.pointType}`]: action.image
+        [`image-${action.pointType}`]: URL.createObjectURL(action.image)
       };
     case types.DELETE_IMAGE:
       return {
