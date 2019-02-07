@@ -39,7 +39,9 @@ A Scalable Cross-Platform Desktop Apps based on  <a href="http://electron.atom.i
 
 [![Github Tag][github-tag-image]][github-tag-url]
 [![Appveyor Build Status][appveyor-image]][appveyor-url]
+[![Build Status][travis-image]][travis-url]
 [![Good first issues open][good-first-issue-image]][good-first-issue-url]
+[![FOSSA Status][fossa-image]][fossa-url]
 
 </div>
 
@@ -100,3 +102,7 @@ MIT © [Scrum Retroboard](https://github.com/stefanDeveloper/scrum-retroboard)
 [good-first-issue-url]: https://github.com/stefanDeveloper/scrum-retroboard/issues?q=is%3Aopen+is%3Aissue+label%3A"good+first+issue"
 [appveyor-image]: https://ci.appveyor.com/api/projects/status/33f3ukwrwv3xr22a?svg=true
 [appveyor-url]: https://ci.appveyor.com/project/stefanDeveloper/scrum-retroboard/branch/master
+[fossa-image]: https://app.fossa.io/api/projects/git%2Bgithub.com%2FstefanDeveloper%2Fscrum-retroboard.svg?type=shield
+[fossa-url]: https://app.fossa.io/projects/git%2Bgithub.com%2FstefanDeveloper%2Fscrum-retroboard?ref=badge_shield
+[travis-image]: https://travis-ci.org/stefanDeveloper/scrum-retroboard.svg?branch=master
+[travis-url]: https://travis-ci.org/stefanDeveloper/scrum-retroboard
