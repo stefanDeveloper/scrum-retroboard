@@ -45,6 +45,8 @@ A Scalable Cross-Platform Desktop Apps based on  <a href="http://electron.atom.i
 
 ## Install
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9ac3a109038141af913794d323a040b7)](https://app.codacy.com/app/stefanDeveloper/scrum-retroboard?utm_source=github.com&utm_medium=referral&utm_content=stefanDeveloper/scrum-retroboard&utm_campaign=Badge_Grade_Dashboard)
+
 - **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/stefanDeveloper/scrum-retroboard/issues/400)**
 
 First, clone the repo via git:
