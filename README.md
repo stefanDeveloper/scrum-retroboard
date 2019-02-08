@@ -29,6 +29,7 @@ A Scalable Cross-Platform Desktop Apps based on  <a href="http://electron.atom.i
 <a href="http://eslint.org/"><img src="./internals/img/eslint-padded-90.png" /></a>
 <a href="https://facebook.github.io/jest/"><img src="./internals/img/jest-padded-90.png" /></a>
 <a href="https://yarnpkg.com/"><img src="./internals/img/yarn-padded-90.png" /></a>
+<a href="https://app.fossa.io/projects/git%2Bgithub.com%2FstefanDeveloper%2Fscrum-retroboard?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2FstefanDeveloper%2Fscrum-retroboard.svg?type=shield"/></a>
 
 </div>
 
@@ -108,3 +109,4 @@ MIT © [Scrum Retroboard](https://github.com/stefanDeveloper/scrum-retroboard)
 [fossa-url]: https://app.fossa.io/projects/git%2Bgithub.com%2FstefanDeveloper%2Fscrum-retroboard?ref=badge_shield
 [travis-image]: https://travis-ci.org/stefanDeveloper/scrum-retroboard.svg?branch=master
 [travis-url]: https://travis-ci.org/stefanDeveloper/scrum-retroboard
+
