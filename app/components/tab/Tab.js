@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Container, Row } from 'reactstrap';
-import PointList from './PointList';
+import PointList from '../pointList/PointList';
 
 type Props = {
   points: Array,
