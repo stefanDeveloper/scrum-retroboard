@@ -1,5 +1,6 @@
 // @flow
 import { app, Menu, shell, BrowserWindow, dialog } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import os from 'os';
 import fs from 'fs';
 import path from 'path';
@@ -118,6 +119,13 @@ export default class MenuBuilder {
         {
           label: 'About Electron',
           selector: 'orderFrontStandardAboutPanel:'
+        },
+        {
+          label: 'Check for Updates...',
+          accelerator: 'Command+U',
+          click: () => {
+            autoUpdater.checkForUpdates();
+          }
         },
         { type: 'separator' },
         { label: 'Services', submenu: [] },

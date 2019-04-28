@@ -10,9 +10,10 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Notification } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import path from 'path';
 import MenuBuilder from './menu';
 
 export default class AppUpdater {
@@ -35,6 +36,7 @@ if (
   process.env.DEBUG_PROD === 'true'
 ) {
   require('electron-debug')();
+  autoUpdater.updateConfigPath = path.join(__dirname, 'dev-app-update.yml');
 }
 
 const installExtensions = async () => {
@@ -99,4 +101,58 @@ app.on('ready', async () => {
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
   new AppUpdater();
+});
+
+//-------------------------------------------------------------------
+// Auto updates
+//-------------------------------------------------------------------
+const sendStatusToWindow = (channel, text, info) => {
+  if (mainWindow) {
+    mainWindow.webContents.send(channel, text, info);
+  }
+};
+
+autoUpdater.on('checking-for-update', () => {
+  sendStatusToWindow('checking-for-update', 'Checking for update...');
+});
+
+autoUpdater.on('update-available', info => {
+  sendStatusToWindow('update-available', 'Update available.', info);
+});
+
+autoUpdater.on('update-not-available', info => {
+  sendStatusToWindow('update-not-available', 'Update not available.', info);
+});
+
+autoUpdater.on('error', err => {
+  sendStatusToWindow('error', `Error in auto-updater: ${err.toString()}`);
+});
+
+autoUpdater.on('download-progress', progressObj => {
+  sendStatusToWindow(
+    'download-progress',
+    `Download speed: ${progressObj.bytesPerSecond} - Downloaded ${
+      progressObj.percent
+    }% (${progressObj.transferred} + '/' + ${progressObj.total} + )`
+  );
+});
+
+autoUpdater.on('update-downloaded', info => {
+  sendStatusToWindow(
+    'update-downloaded',
+    'Update downloaded; will install now',
+    info
+  );
+});
+
+autoUpdater.on('update-downloaded', info => {
+  // Wait 5 seconds, then quit and install
+  // In your application, you don't need to wait 500 ms.
+  // You could call autoUpdater.quitAndInstall(); immediately
+  new Notification({
+    title: 'Updates installed',
+    subtitle: info,
+    body: 'Application will be restarted!'
+  }).show();
+  autoUpdater.quitAndInstall();
 });
