@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { ipcRenderer, remote, Notification } from 'electron';
+import { ipcRenderer, remote } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import fs from 'fs';
 import Root from './containers/Root';
@@ -59,14 +59,6 @@ ipcRenderer.on('error', (event, text) => {
     message: 'Hupsi something went wrong',
     detail: text
   });
-});
-
-ipcRenderer.on('checking-for-update', (event, text, info) => {
-  new Notification({
-    title: 'Checking for Updates...',
-    subtitle: info,
-    body: text
-  }).show();
 });
 
 ipcRenderer.on('update-available', (event, text, info) => {

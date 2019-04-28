@@ -112,16 +112,8 @@ const sendStatusToWindow = (channel, text, info) => {
   }
 };
 
-autoUpdater.on('checking-for-update', () => {
-  sendStatusToWindow('checking-for-update', 'Checking for update...');
-});
-
 autoUpdater.on('update-available', info => {
   sendStatusToWindow('update-available', 'Update available.', info);
-});
-
-autoUpdater.on('update-not-available', info => {
-  sendStatusToWindow('update-not-available', 'Update not available.', info);
 });
 
 autoUpdater.on('error', err => {
@@ -138,21 +130,16 @@ autoUpdater.on('download-progress', progressObj => {
 });
 
 autoUpdater.on('update-downloaded', info => {
-  sendStatusToWindow(
-    'update-downloaded',
-    'Update downloaded; will install now',
-    info
-  );
+  new Notification({
+    title: 'Updates downloaded',
+    subtitle: `New version ${info.version} is downloaded`,
+    body: 'Update downloaded; will install now'
+  }).show();
 });
 
-autoUpdater.on('update-downloaded', info => {
+autoUpdater.on('update-downloaded', () => {
   // Wait 5 seconds, then quit and install
   // In your application, you don't need to wait 500 ms.
   // You could call autoUpdater.quitAndInstall(); immediately
-  new Notification({
-    title: 'Updates installed',
-    subtitle: info,
-    body: 'Application will be restarted!'
-  }).show();
   autoUpdater.quitAndInstall();
 });

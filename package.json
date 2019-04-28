@@ -1,7 +1,7 @@
 {
   "name": "scrum-retroboard",
   "productName": "ScrumRetroboard",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Electron application based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -240,7 +240,7 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.1.5",
-    "yarn": "^1.13.0"
+    "yarn": "^1.15.2"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.6.3",
