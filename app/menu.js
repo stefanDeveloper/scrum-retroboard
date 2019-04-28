@@ -1,5 +1,12 @@
 // @flow
-import { app, Menu, shell, BrowserWindow, dialog } from 'electron';
+import {
+  app,
+  Menu,
+  shell,
+  BrowserWindow,
+  dialog,
+  Notification
+} from 'electron';
 import { autoUpdater } from 'electron-updater';
 import os from 'os';
 import fs from 'fs';
@@ -125,6 +132,13 @@ export default class MenuBuilder {
           accelerator: 'Command+U',
           click: () => {
             autoUpdater.checkForUpdates();
+            autoUpdater.on('update-not-available', info => {
+              new Notification({
+                title: 'Update not available.',
+                subtitle: 'Update not available.',
+                body: `You are already on the newest version ${info.version}`
+              }).show();
+            });
           }
         },
         { type: 'separator' },
@@ -415,6 +429,20 @@ export default class MenuBuilder {
             label: 'Search Issues',
             click() {
               shell.openExternal('https://github.com/atom/electron/issues');
+            }
+          },
+          {
+            label: 'Check for Updates...',
+            accelerator: 'Command+U',
+            click: () => {
+              autoUpdater.checkForUpdates();
+              autoUpdater.on('update-not-available', info => {
+                new Notification({
+                  title: 'Update not available.',
+                  subtitle: 'Update not available.',
+                  body: `You are already on the newest version ${info.version}`
+                }).show();
+              });
             }
           }
         ]
