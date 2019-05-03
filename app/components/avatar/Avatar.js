@@ -3,15 +3,22 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'reactstrap';
 import AvatarEditor from 'react-avatar-editor';
 import Dropzone from 'react-dropzone';
+import { connect } from 'react-redux';
 import styles from './Avatar.css';
+import {
+  update as updateImage,
+  remove as removeImage
+} from '../../actions/image';
 
 type Props = {
   image: object,
+  points: [],
+  imageType: string,
   onChange: (file: object) => void,
   onDelete: () => void
 };
 
-export default class Board extends Component<Props> {
+class Avatar extends Component<Props> {
   props: Props;
 
   componentWillUnmount() {
@@ -20,7 +27,7 @@ export default class Board extends Component<Props> {
   }
 
   render() {
-    const { image, onChange, onDelete } = this.props;
+    const { points, imageType, onChange, onDelete } = this.props;
     return (
       <Container fluid>
         <Dropzone
@@ -32,12 +39,12 @@ export default class Board extends Component<Props> {
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              {image ? (
+              {points[`image-${imageType}`] ? (
                 <Container fluid className={styles.dragZoneImg}>
                   <AvatarEditor
                     height={250}
                     width={300}
-                    image={image}
+                    image={points[`image-${imageType}`]}
                     scale={0.8}
                     border={0}
                   />
@@ -68,3 +75,17 @@ export default class Board extends Component<Props> {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  points: state.imageReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+  update: (image, imageType) => dispatch(updateImage(image, imageType)),
+  remove: pointType => dispatch(removeImage(pointType))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Avatar);

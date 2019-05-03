@@ -1,21 +1,23 @@
 // @flow
 import React, { Component } from 'react';
 import { Input } from 'reactstrap';
+import { connect } from 'react-redux';
+import { update as updateTitle } from '../../actions/title';
 import styles from './Title.css';
 
 type Props = {
   title: string,
-  updateTitle: (value: string) => void
+  update: (value: string) => void
 };
 
-export default class Title extends Component<Props> {
+class Title extends Component<Props> {
   props: Props;
 
-  textChanged(event) {
+  textChanged = event => {
     const { value } = event.target;
-    const { updateTitle } = this.props;
-    updateTitle(value);
-  }
+    const { update } = this.props;
+    update(value);
+  };
 
   render() {
     const { title } = this.props;
@@ -29,3 +31,16 @@ export default class Title extends Component<Props> {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  title: state.titleReducer.title
+});
+
+const mapDispatchToProps = dispatch => ({
+  update: title => dispatch(updateTitle(title))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Title);

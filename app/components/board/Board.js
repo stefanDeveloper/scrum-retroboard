@@ -23,7 +23,7 @@ type Props = {
   }
 };
 
-export default class Board extends Component<Props> {
+class Board extends Component<Props> {
   props: Props;
 
   render() {
@@ -45,17 +45,14 @@ export default class Board extends Component<Props> {
       <Container fluid>
         <Row className={styles.row}>
           <Col>
-            <Title
-              title={points.title}
-              updateTitle={() => actions.updateTitle()}
-            />
+            <Title />
           </Col>
         </Row>
         <Row className={styles.row}>
           {tabs.map(tab => (
             <Col sm="4" key={tab.id}>
               <Avatar
-                image={points[`image-${tab.tabType}`]}
+                imageType={tab.tabType}
                 onChange={image => actions.updateImage(image, tab.tabType)}
                 onDelete={() => actions.deleteImage(tab.tabType)}
               />
@@ -77,11 +74,7 @@ export default class Board extends Component<Props> {
                 </Button>
               </h3>
               <hr className="my-2" />
-              <Tab
-                actions={actions}
-                points={tab.points}
-                pointType={tab.tabType}
-              />
+              <Tab points={tab.points} pointType={tab.tabType} />
             </Col>
           ))}
         </Row>
@@ -89,3 +82,5 @@ export default class Board extends Component<Props> {
     );
   }
 }
+
+export default Board;
