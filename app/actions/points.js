@@ -39,13 +39,6 @@ export function incrementLikeAll(pointType) {
   };
 }
 
-export function updateTitle(title) {
-  return {
-    type: types.UPDATE_TITLE,
-    title
-  };
-}
-
 export function load(points) {
   return {
     type: types.LOAD,
@@ -56,20 +49,5 @@ export function load(points) {
 export function newSprint() {
   return {
     type: types.NEW_SPRINT
-  };
-}
-
-export function updateImage(image, pointType) {
-  return {
-    type: types.UPDATE_IMAGE,
-    image,
-    pointType
-  };
-}
-
-export function deleteImage(pointType) {
-  return {
-    type: types.DELETE_IMAGE,
-    pointType
   };
 }

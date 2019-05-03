@@ -1,11 +1,15 @@
 // @flow
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import points from './points';
+import pointsReducer from './pointsReducer';
+import titleReducer from './titleReducer';
+import imageReducer from './imageReducer';
 
 export default function createRootReducer(history: History) {
   return combineReducers({
     router: connectRouter(history),
-    points
+    titleReducer,
+    pointsReducer,
+    imageReducer
   });
 }

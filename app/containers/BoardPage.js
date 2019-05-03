@@ -3,15 +3,13 @@ import { connect } from 'react-redux';
 import Board from '../components/board/Board';
 import * as PointersActions from '../actions/points';
 
-function mapStateToProps(state) {
-  return {
-    points: state.points
-  };
-}
+const mapStateToProps = state => ({
+  points: state.pointsReducer
+});
 
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(PointersActions, dispatch) };
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(PointersActions, dispatch)
+});
 
 export default connect(
   mapStateToProps,
