@@ -204,23 +204,6 @@ export default class MenuBuilder {
       ]
     };
 
-    const subMenuEdit = {
-      label: 'Edit',
-      submenu: [
-        { label: 'Undo', accelerator: 'Command+Z', selector: 'undo:' },
-        { label: 'Redo', accelerator: 'Shift+Command+Z', selector: 'redo:' },
-        { type: 'separator' },
-        { label: 'Cut', accelerator: 'Command+X', selector: 'cut:' },
-        { label: 'Copy', accelerator: 'Command+C', selector: 'copy:' },
-        { label: 'Paste', accelerator: 'Command+V', selector: 'paste:' },
-        {
-          label: 'Select All',
-          accelerator: 'Command+A',
-          selector: 'selectAll:'
-        }
-      ]
-    };
-
     const subMenuViewDev = {
       label: 'View',
       submenu: [
@@ -308,14 +291,7 @@ export default class MenuBuilder {
     const subMenuView =
       process.env.NODE_ENV === 'development' ? subMenuViewDev : subMenuViewProd;
 
-    return [
-      subMenuAbout,
-      subMenuFile,
-      subMenuEdit,
-      subMenuView,
-      subMenuWindow,
-      subMenuHelp
-    ];
+    return [subMenuAbout, subMenuFile, subMenuView, subMenuWindow, subMenuHelp];
   }
 
   buildDefaultTemplate() {
@@ -408,27 +384,25 @@ export default class MenuBuilder {
           {
             label: 'Learn More',
             click() {
-              shell.openExternal('http://electron.atom.io');
+              shell.openExternal(
+                'https://github.com/stefanDeveloper/scrum-retroboard'
+              );
             }
           },
           {
             label: 'Documentation',
             click() {
               shell.openExternal(
-                'https://github.com/atom/electron/tree/master/docs#readme'
+                'https://github.com/stefanDeveloper/scrum-retroboard/blob/master/README.md'
               );
-            }
-          },
-          {
-            label: 'Community Discussions',
-            click() {
-              shell.openExternal('https://discuss.atom.io/c/electron');
             }
           },
           {
             label: 'Search Issues',
             click() {
-              shell.openExternal('https://github.com/atom/electron/issues');
+              shell.openExternal(
+                'https://github.com/stefanDeveloper/scrum-retroboard/issues'
+              );
             }
           },
           {
