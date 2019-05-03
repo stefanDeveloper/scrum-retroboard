@@ -1,8 +1,15 @@
 export default {
   points: {
-    title: 'Sprint 01',
     stop: [],
     start: [],
     continue: []
+  },
+  image: {
+    'image-start': '',
+    'image-stop': '',
+    'image-continue': ''
+  },
+  title: {
+    title: 'Sprint 01'
   }
 };
