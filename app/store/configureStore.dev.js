@@ -4,14 +4,14 @@ import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
-import * as actions from '../actions/actionTypes';
-import type { pointStateType } from '../reducers/types';
+import { pointAction, titleAction, imageAction } from '../actions/index';
+import type { stateType } from '../reducers/types';
 
 const history = createHashHistory();
 
 const rootReducer = createRootReducer(history);
 
-const configureStore = (initialState?: pointStateType) => {
+const configureStore = (initialState?: stateType) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
@@ -36,7 +36,9 @@ const configureStore = (initialState?: pointStateType) => {
 
   // Redux DevTools Configuration
   const actionCreators = {
-    ...actions,
+    ...imageAction,
+    ...titleAction,
+    ...pointAction,
     ...routerActions
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
