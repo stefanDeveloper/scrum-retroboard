@@ -22,7 +22,7 @@ type Props = {
   onDeleteClick: () => void
 };
 
-export default class Point extends Component<Props> {
+class Point extends Component<Props> {
   props: Props;
 
   render() {
@@ -63,3 +63,5 @@ export default class Point extends Component<Props> {
     );
   }
 }
+
+export default Point;

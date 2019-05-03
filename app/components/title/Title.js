@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Input } from 'reactstrap';
 import { connect } from 'react-redux';
-import { update as updateTitle } from '../../actions/title';
+import { update as updateTitle } from '../../actions/titleAction';
 import styles from './Title.css';
 
 type Props = {
