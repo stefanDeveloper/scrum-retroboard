@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'reactstrap';
 import styles from './Board.css';
-import { CONTINUE_POINT, STOP_POINT, START_POINT } from './TabTypes';
-import Tab from './Tab';
-import Title from './Title';
-import Avatar from './Avatar';
+import { CONTINUE_POINT, STOP_POINT, START_POINT } from '../tab/TabTypes';
+import Tab from '../tab/Tab';
+import Title from '../title/Title';
+import Avatar from '../avatar/Avatar';
 
 type Props = {
   points: {
