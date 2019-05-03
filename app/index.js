@@ -1,7 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, remote } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import fs from 'fs';
 import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
@@ -46,5 +47,48 @@ ipcRenderer.on('save-file', (event, path) => {
   const { points } = store.getState();
   fs.writeFile(path, JSON.stringify(points), () => {
     // TODO handle error
+  });
+});
+
+ipcRenderer.on('error', (event, text) => {
+  remote.dialog.showMessageBox(null, {
+    type: 'error',
+    buttons: ['Ok'],
+    defaultId: 0,
+    title: 'Error',
+    message: 'Hupsi something went wrong',
+    detail: text
+  });
+});
+
+ipcRenderer.on('update-available', (event, text, info) => {
+  remote.dialog.showMessageBox(
+    null,
+    {
+      type: 'question',
+      buttons: ['No', 'Yes'],
+      defaultId: 1,
+      title: 'Update',
+      message: `Do you want to update our board to the version ${
+        info.version
+      }?`,
+      detail: text
+    },
+    response => {
+      if (response === 1) {
+        autoUpdater.quitAndInstall();
+      }
+    }
+  );
+});
+
+ipcRenderer.on('update-not-available', (event, text, info) => {
+  remote.dialog.showMessageBox(null, {
+    type: 'info',
+    buttons: ['Ok'],
+    defaultId: 0,
+    title: 'Update',
+    message: `You are on the newest version ${info.version}`,
+    detail: text
   });
 });
