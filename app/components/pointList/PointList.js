@@ -8,7 +8,7 @@ import {
   update as updatePoint,
   remove as removePoint,
   incrementLike as incrementLikePoint
-} from '../../actions/points';
+} from '../../actions/pointAction';
 
 type Props = {
   points: {

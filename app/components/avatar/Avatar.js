@@ -5,17 +5,13 @@ import AvatarEditor from 'react-avatar-editor';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import styles from './Avatar.css';
-import {
-  update as updateImage,
-  remove as removeImage
-} from '../../actions/image';
 
 type Props = {
   image: object,
-  points: [],
-  imageType: string,
+  images: Array,
+  pointType: string,
   onChange: (file: object) => void,
-  onDelete: () => void
+  onRemove: () => void
 };
 
 class Avatar extends Component<Props> {
@@ -27,7 +23,7 @@ class Avatar extends Component<Props> {
   }
 
   render() {
-    const { points, imageType, onChange, onDelete } = this.props;
+    const { images, pointType, onChange, onRemove } = this.props;
     return (
       <Container fluid>
         <Dropzone
@@ -39,19 +35,19 @@ class Avatar extends Component<Props> {
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              {points[`image-${imageType}`] ? (
+              {images[`image-${pointType}`] ? (
                 <Container fluid className={styles.dragZoneImg}>
                   <AvatarEditor
                     height={250}
                     width={300}
-                    image={points[`image-${imageType}`]}
+                    image={images[`image-${pointType}`]}
                     scale={0.8}
                     border={0}
                   />
                   <Button
                     color="link"
                     className={styles.dragZoneBtn}
-                    onClick={() => onDelete()}
+                    onClick={() => onRemove()}
                   >
                     <i className="fas fa-trash" />
                   </Button>
@@ -77,15 +73,10 @@ class Avatar extends Component<Props> {
 }
 
 const mapStateToProps = state => ({
-  points: state.imageReducer
-});
-
-const mapDispatchToProps = dispatch => ({
-  update: (image, imageType) => dispatch(updateImage(image, imageType)),
-  remove: pointType => dispatch(removeImage(pointType))
+  images: state.imageReducer
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Avatar);

@@ -4,7 +4,7 @@ import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
-import * as actions from '../actions/points';
+import * as actions from '../actions/actionTypes';
 import type { pointStateType } from '../reducers/types';
 
 const history = createHashHistory();

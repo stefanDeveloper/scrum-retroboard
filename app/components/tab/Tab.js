@@ -8,7 +8,7 @@ type Props = {
   pointType: string
 };
 
-export default class Tab extends Component<Props> {
+class Tab extends Component<Props> {
   props: Props;
 
   render() {
@@ -22,3 +22,5 @@ export default class Tab extends Component<Props> {
     );
   }
 }
+
+export default Tab;
