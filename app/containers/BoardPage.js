@@ -1,17 +1,24 @@
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Board from '../components/board/Board';
-import * as PointersActions from '../actions/points';
+import {
+  incrementLikeAll,
+  create as createPoint
+} from '../actions/pointAction';
+import {
+  update as updateImage,
+  remove as removeImage
+} from '../actions/imageAction';
 
-function mapStateToProps(state) {
-  return {
-    points: state.points
-  };
-}
+const mapStateToProps = state => ({
+  points: state.pointsReducer
+});
 
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(PointersActions, dispatch) };
-}
+const mapDispatchToProps = dispatch => ({
+  incrementLikeAll: pointType => dispatch(incrementLikeAll(pointType)),
+  createPoint: pointType => dispatch(createPoint(pointType)),
+  updateImage: (image, pointType) => dispatch(updateImage(image, pointType)),
+  removeImage: pointType => dispatch(removeImage(pointType))
+});
 
 export default connect(
   mapStateToProps,

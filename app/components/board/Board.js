@@ -14,22 +14,22 @@ type Props = {
     continue: Array
   },
   tabs: Array,
-  actions: {
-    create: (pointType: string) => void,
-    incrementLikeAll: (pointType: string) => void,
-    updateTitle: (value: string) => void,
-    updateImage: (image: object, pointType: string) => void,
-    deleteImage: (pointType: string) => void
-  }
+  createPoint: (pointType: string) => void,
+  incrementLikeAll: (pointType: string) => void,
+  updateImage: (image: object, pointType: string) => void,
+  removeImage: (pointType: string) => void
 };
 
-export default class Board extends Component<Props> {
+class Board extends Component<Props> {
   props: Props;
 
   render() {
     const {
       points,
-      actions,
+      createPoint,
+      incrementLikeAll,
+      updateImage,
+      removeImage,
       tabs = [
         {
           id: 1,
@@ -45,43 +45,36 @@ export default class Board extends Component<Props> {
       <Container fluid>
         <Row className={styles.row}>
           <Col>
-            <Title
-              title={points.title}
-              updateTitle={() => actions.updateTitle()}
-            />
+            <Title />
           </Col>
         </Row>
         <Row className={styles.row}>
           {tabs.map(tab => (
             <Col sm="4" key={tab.id}>
               <Avatar
-                image={points[`image-${tab.tabType}`]}
-                onChange={image => actions.updateImage(image, tab.tabType)}
-                onDelete={() => actions.deleteImage(tab.tabType)}
+                pointType={tab.tabType}
+                onChange={image => updateImage(image, tab.tabType)}
+                onRemove={() => removeImage(tab.tabType)}
               />
               <h3>
                 {tab.title}
                 <Button
                   color="link"
                   className="no-print"
-                  onClick={() => actions.create(tab.tabType)}
+                  onClick={() => createPoint(tab.tabType)}
                 >
                   <i className="fa fa-plus" />
                 </Button>
                 <Button
                   color="link"
                   className={styles['like-btn']}
-                  onClick={() => actions.incrementLikeAll(tab.tabType)}
+                  onClick={() => incrementLikeAll(tab.tabType)}
                 >
                   <i className="fa fa-heart" />
                 </Button>
               </h3>
               <hr className="my-2" />
-              <Tab
-                actions={actions}
-                points={tab.points}
-                pointType={tab.tabType}
-              />
+              <Tab points={tab.points} pointType={tab.tabType} />
             </Col>
           ))}
         </Row>
@@ -89,3 +82,5 @@ export default class Board extends Component<Props> {
     );
   }
 }
+
+export default Board;

@@ -1,6 +1,6 @@
 import type { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux';
 
-export type pointStateType = {
+export type stateType = {
   +point: Array
 };
 
@@ -8,7 +8,7 @@ export type Action = {
   +type: string
 };
 
-export type GetState = () => pointStateType;
+export type GetState = () => stateType;
 
 export type Dispatch = ReduxDispatch<Action>;
 
