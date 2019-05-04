@@ -56,7 +56,7 @@ class Board extends Component<Props> {
                 onChange={image => updateImage(image, tab.tabType)}
                 onRemove={() => removeImage(tab.tabType)}
               />
-              <h3>
+              <h3 className="sticky-top">
                 {tab.title}
                 <Button
                   color="link"
