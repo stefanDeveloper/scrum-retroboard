@@ -8,4 +8,11 @@
   .no-print * {
     display: none !important;
   }
+  .sticky-top {
+    position: relative;
+  }
+}
+
+.sticky-top {
+  background-color: white;
 }
