@@ -3,15 +3,18 @@ import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'reactstrap';
 import AvatarEditor from 'react-avatar-editor';
 import Dropzone from 'react-dropzone';
+import { connect } from 'react-redux';
 import styles from './Avatar.css';
 
 type Props = {
   image: object,
+  images: Array,
+  pointType: string,
   onChange: (file: object) => void,
-  onDelete: () => void
+  onRemove: () => void
 };
 
-export default class Board extends Component<Props> {
+class Avatar extends Component<Props> {
   props: Props;
 
   componentWillUnmount() {
@@ -20,7 +23,7 @@ export default class Board extends Component<Props> {
   }
 
   render() {
-    const { image, onChange, onDelete } = this.props;
+    const { images, pointType, onChange, onRemove } = this.props;
     return (
       <Container fluid>
         <Dropzone
@@ -32,19 +35,19 @@ export default class Board extends Component<Props> {
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              {image ? (
+              {images[`image-${pointType}`] ? (
                 <Container fluid className={styles.dragZoneImg}>
                   <AvatarEditor
                     height={250}
                     width={300}
-                    image={image}
+                    image={images[`image-${pointType}`]}
                     scale={0.8}
                     border={0}
                   />
                   <Button
                     color="link"
                     className={styles.dragZoneBtn}
-                    onClick={() => onDelete()}
+                    onClick={() => onRemove()}
                   >
                     <i className="fas fa-trash" />
                   </Button>
@@ -68,3 +71,12 @@ export default class Board extends Component<Props> {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  images: state.imageReducer
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(Avatar);

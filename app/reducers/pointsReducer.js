@@ -1,12 +1,9 @@
 // @flow
 import * as types from '../actions/actionTypes';
-import initialState from './initialState';
+import initialState from '../constants/initialState';
 import type { Action } from './types';
 
-export default function points(
-  state: object = initialState.points,
-  action: Action
-) {
+const points = (state: object = initialState.points, action: Action) => {
   const newPoint = Object.assign({}, action.point);
   const newState = Object.assign([], state[action.pointType]);
   const colors = [
@@ -85,26 +82,13 @@ export default function points(
         ...state,
         [action.pointType]: newState
       };
-    case types.UPDATE_TITLE:
-      return {
-        ...state,
-        title: action.title
-      };
     case types.LOAD:
       return action.points;
     case types.NEW_SPRINT:
       return initialState.points;
-    case types.UPDATE_IMAGE:
-      return {
-        ...state,
-        [`image-${action.pointType}`]: URL.createObjectURL(action.image)
-      };
-    case types.DELETE_IMAGE:
-      return {
-        ...state,
-        [`image-${action.pointType}`]: ''
-      };
     default:
       return state;
   }
-}
+};
+
+export default points;
