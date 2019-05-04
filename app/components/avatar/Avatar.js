@@ -91,7 +91,7 @@ class Avatar extends Component<Props> {
                       <i className="fas fa-image" />
                     </Col>
                   </Row>
-                  <Row className={[styles.message, styles.title]}>
+                  <Row className={`${styles.message} ${styles.title}`}>
                     <Col>Drag and Drop image here.</Col>
                   </Row>
                 </Container>
