@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Container, Row, Col, Button } from 'reactstrap';
+import { Container, Row, Col, Button, Input } from 'reactstrap';
 import AvatarEditor from 'react-avatar-editor';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
@@ -10,6 +10,7 @@ type Props = {
   image: object,
   images: Array,
   pointType: string,
+  scale: number,
   onChange: (file: object) => void,
   onRemove: () => void
 };
@@ -17,18 +18,33 @@ type Props = {
 class Avatar extends Component<Props> {
   props: Props;
 
+  constructor(props) {
+    super(props);
+    this.state = { scale: 0 };
+  }
+
+  componentDidMount() {
+    this.setState({ scale: 50 });
+  }
+
   componentWillUnmount() {
     const { image } = this.props;
     URL.revokeObjectURL(image.preview);
   }
 
+  handleChange = event => {
+    const { value } = event.target;
+    this.setState({ scale: value });
+  };
+
   render() {
     const { images, pointType, onChange, onRemove } = this.props;
+    const { scale } = this.state;
     return (
-      <Container fluid>
+      <Container className={styles.avatar}>
         <Dropzone
           onDrop={files => onChange(files[0])}
-          disableClick
+          noClick
           accept="image/*"
           style={{ width: '250px', height: '250px' }}
         >
@@ -36,30 +52,46 @@ class Avatar extends Component<Props> {
             <div {...getRootProps()}>
               <input {...getInputProps()} />
               {images[`image-${pointType}`] ? (
-                <Container fluid className={styles.dragZoneImg}>
-                  <AvatarEditor
-                    height={250}
-                    width={300}
-                    image={images[`image-${pointType}`]}
-                    scale={0.8}
-                    border={0}
-                  />
+                <Container className={styles.dragZoneImg}>
+                  <Row>
+                    <Col>
+                      <AvatarEditor
+                        height={260}
+                        width={300}
+                        image={images[`image-${pointType}`]}
+                        scale={scale / 100}
+                        border={0}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Input
+                        type="range"
+                        className={styles.scaleInput}
+                        min="0"
+                        max="100"
+                        value={scale}
+                        onChange={event => this.handleChange(event)}
+                      />
+                    </Col>
+                  </Row>
                   <Button
                     color="link"
-                    className={styles.dragZoneBtn}
+                    className={styles.removeBtn}
                     onClick={() => onRemove()}
                   >
                     <i className="fas fa-trash" />
                   </Button>
                 </Container>
               ) : (
-                <Container className={styles.dragZone}>
-                  <Row>
+                <Container fluid className={styles.dragZone}>
+                  <Row className={styles.message}>
                     <Col className={styles.icon}>
                       <i className="fas fa-image" />
                     </Col>
                   </Row>
-                  <Row className={styles.title}>
+                  <Row className={[styles.message, styles.title]}>
                     <Col>Drag and Drop image here.</Col>
                   </Row>
                 </Container>

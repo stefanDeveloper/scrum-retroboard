@@ -51,7 +51,11 @@ class PointList extends Component<Props> {
         </Container>
       );
     }
-    return <Label className={styles.label}>No bullet point added yet!</Label>;
+    return (
+      <Label className={[styles.label, 'sticky-top']}>
+        No bullet point added yet!
+      </Label>
+    );
   }
 }
 
