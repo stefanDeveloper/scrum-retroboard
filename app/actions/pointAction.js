@@ -39,10 +39,10 @@ export function incrementLikeAll(pointType) {
   };
 }
 
-export function load(points) {
+export function load(store) {
   return {
     type: types.LOAD,
-    points
+    store
   };
 }
 

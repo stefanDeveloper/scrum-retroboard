@@ -83,7 +83,7 @@ const points = (state: object = initialState.points, action: Action) => {
         [action.pointType]: newState
       };
     case types.LOAD:
-      return action.points;
+      return action.state.pointsReducer;
     case types.NEW_SPRINT:
       return initialState.points;
     default:
