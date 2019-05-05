@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { ipcRenderer, remote } from 'electron';
+import { ipcRenderer, remote, Notification } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import fs from 'fs';
 import Root from './containers/Root';
@@ -32,10 +32,14 @@ if (module.hot) {
 
 ipcRenderer.on('open-file', (event, data) => {
   try {
-    const points = JSON.parse(data);
-    store.dispatch({ type: 'LOAD', points });
+    const state = JSON.parse(data);
+    store.dispatch({ type: 'LOAD', state });
   } catch (e) {
-    // TODO Handle error
+    new Notification({
+      title: 'Could not open file!',
+      subtitle: 'It looks like you are doing some hacking shit here...',
+      body: e
+    }).show();
   }
 });
 
@@ -44,9 +48,12 @@ ipcRenderer.on('new-sprint', () => {
 });
 
 ipcRenderer.on('save-file', (event, path) => {
-  const { points } = store.getState();
-  fs.writeFile(path, JSON.stringify(points), () => {
-    // TODO handle error
+  fs.writeFile(path, JSON.stringify(store.getState()), e => {
+    new Notification({
+      title: 'Could not save file!',
+      subtitle: 'It looks like you are doing some hacking shit here...',
+      body: e
+    }).show();
   });
 });
 
