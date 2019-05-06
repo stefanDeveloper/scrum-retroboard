@@ -10,6 +10,10 @@ const title = (state: object = initialState.title, action: Action) => {
         ...state,
         title: action.title
       };
+    case types.LOAD:
+      return action.state.titleReducer;
+    case types.NEW_SPRINT:
+      return initialState.title;
     default:
       return state;
   }

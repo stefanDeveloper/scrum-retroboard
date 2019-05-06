@@ -15,6 +15,10 @@ const title = (state: object = initialState.image, action: Action) => {
         ...state,
         [`image-${action.pointType}`]: ''
       };
+    case types.LOAD:
+      return action.state.imageReducer;
+    case types.NEW_SPRINT:
+      return initialState.image;
     default:
       return state;
   }
