@@ -13,3 +13,10 @@ export const remove = (pointType, sprintId) => ({
   pointType,
   sprintId
 });
+
+export const setScale = (scale, pointType, sprintId) => ({
+  type: types.SET_SCALE,
+  scale,
+  pointType,
+  sprintId
+});

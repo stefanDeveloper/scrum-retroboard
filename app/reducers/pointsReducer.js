@@ -7,7 +7,7 @@ const points = (state: object, action: Action) => {
   const sprintMap = new Map(state.sprints.map(el => [el.id, el]));
   let newSprint = Object.assign([], sprintMap.get(action.sprintId));
   const newSprints = Object.assign([], state.sprints);
-  const newPoints = Object.assign([], newSprint);
+  const newPoints = Object.assign([], newSprint[action.pointType]);
   const newPoint = Object.assign({}, action.point);
   const colors = [
     'primary',
