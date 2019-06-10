@@ -1,11 +1,14 @@
 // @flow
 import * as types from '../actions/actionTypes';
-import initialState from '../constants/initialState';
+
 import type { Action } from './types';
 
-const points = (state: object = initialState.points, action: Action) => {
+const points = (state: object, action: Action) => {
+  const sprintMap = new Map(state.sprints.map(el => [el.id, el]));
+  let newSprint = Object.assign([], sprintMap.get(action.sprintId));
+  const newSprints = Object.assign([], state.sprints);
+  const newPoints = Object.assign([], newSprint[action.pointType]);
   const newPoint = Object.assign({}, action.point);
-  const newState = Object.assign([], state[action.pointType]);
   const colors = [
     'primary',
     'secondary',
@@ -14,54 +17,46 @@ const points = (state: object = initialState.points, action: Action) => {
     'warning',
     'dark'
   ];
-  const indexOfpointToDelete = newState.findIndex(
-    point => point.id === newPoint.id
-  );
+  const indexOfpointToDelete = newPoints.find(pt => pt.id === newPoint.id);
+
   switch (action.type) {
     case types.INCREMENT_LIKE:
+      newSprint = newSprint.points[action.pointType].map(point => {
+        if (point.id !== newPoint.id) {
+          // If the id is not equal, it's the point we want
+          return point;
+        }
+        // If point is zero, it can't be possible to get negative values.
+        newPoint.likes += 1;
+        return {
+          ...point,
+          ...newPoint
+        };
+      });
+
+      newSprints[
+        newSprints.findIndex(spr => spr.id === action.sprintId)
+      ].points[action.pointType] = newSprint;
       return {
         ...state,
-        [action.pointType]: newState.map(point => {
-          if (point.id !== newPoint.id) {
-            // If the id is not equal, it's the point we want
-            return point;
-          }
-          // If point is zero, it can't be possible to get negative values.
-          newPoint.likes += 1;
-          return {
-            ...point,
-            ...newPoint
-          };
-        })
-      };
-    case types.INCREMENT_LIKE_ALL:
-      return {
-        ...state,
-        [action.pointType]: newState.map(point => {
-          const currentPoint = point;
-          // If point is zero, it can't be possible to get negative values.
-          currentPoint.likes += 1;
-          return {
-            ...currentPoint
-          };
-        })
+        sprints: newSprints
       };
     case types.UPDATE_POINT:
+      newSprint.points[action.pointType].map(point => {
+        if (point.id !== newPoint.id) {
+          return point;
+        }
+        return {
+          ...point,
+          newPoint
+        };
+      });
       return {
         ...state,
-        [action.pointType]: newState.map(point => {
-          if (point.id !== newPoint.id) {
-            return point;
-          }
-          // If point is zero, it can't be possible to get negative values.
-          return {
-            ...point,
-            newPoint
-          };
-        })
+        sprints: newSprints
       };
     case types.CREATE_POINT:
-      newState.push(
+      newSprint.points[action.pointType].push(
         Object.assign(
           {},
           {
@@ -74,18 +69,27 @@ const points = (state: object = initialState.points, action: Action) => {
       );
       return {
         ...state,
-        [action.pointType]: newState
+        sprints: newSprints
       };
     case types.REMOVE_POINT:
-      newState.splice(indexOfpointToDelete, 1);
+      newSprint.points[action.pointType].splice(indexOfpointToDelete, 1);
       return {
         ...state,
-        [action.pointType]: newState
+        sprints: newSprints
       };
-    case types.LOAD:
-      return action.state.pointsReducer;
-    case types.NEW_SPRINT:
-      return initialState.points;
+    case types.INCREMENT_LIKE_ALL:
+      newSprint.points[action.pointType].map(point => {
+        const currentPoint = point;
+        // If point is zero, it can't be possible to get negative values.
+        currentPoint.likes += 1;
+        return {
+          ...currentPoint
+        };
+      });
+      return {
+        ...state,
+        sprints: newSprints
+      };
     default:
       return state;
   }

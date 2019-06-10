@@ -1,20 +1,15 @@
 // @flow
 import * as types from './actionTypes';
 
-export const update = title => ({
+export const update = (title, sprintId) => ({
   type: types.UPDATE_TITLE,
-  title
+  title,
+  sprintId
 });
 
-export function load(store) {
-  return {
-    type: types.LOAD,
-    store
-  };
-}
-
-export function newSprint() {
-  return {
-    type: types.NEW_SPRINT
-  };
-}
+export const updateTabName = (title, pointType, sprintId) => ({
+  type: types.UPDATE_TAB_NAME,
+  title,
+  pointType,
+  sprintId
+});

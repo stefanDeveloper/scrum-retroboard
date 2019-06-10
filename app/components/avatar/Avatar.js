@@ -7,39 +7,30 @@ import { connect } from 'react-redux';
 import styles from './Avatar.css';
 
 type Props = {
+  sprints: Array,
   image: object,
   images: Array,
   pointType: string,
+  sprintId: string,
   scale: number,
   onChange: (file: object) => void,
-  onRemove: () => void
+  onRemove: () => void,
+  onScale: (event: object) => void
 };
 
 class Avatar extends Component<Props> {
   props: Props;
 
-  constructor(props) {
-    super(props);
-    this.state = { scale: 0 };
-  }
-
-  componentDidMount() {
-    this.setState({ scale: 50 });
-  }
-
-  componentWillUnmount() {
-    const { image } = this.props;
-    URL.revokeObjectURL(image.preview);
-  }
-
-  handleChange = event => {
-    const { value } = event.target;
-    this.setState({ scale: value });
-  };
-
   render() {
-    const { images, pointType, onChange, onRemove } = this.props;
-    const { scale } = this.state;
+    const {
+      sprints,
+      sprintId,
+      images = sprints.find(sprint => sprint.id === sprintId).image,
+      pointType,
+      onChange,
+      onRemove,
+      onScale
+    } = this.props;
     return (
       <Container className={styles.avatar}>
         <Dropzone
@@ -51,15 +42,15 @@ class Avatar extends Component<Props> {
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              {images[`image-${pointType}`] ? (
+              {images[pointType].url ? (
                 <Container className={styles.dragZoneImg}>
                   <Row>
                     <Col>
                       <AvatarEditor
                         height={260}
                         width={300}
-                        image={images[`image-${pointType}`]}
-                        scale={scale / 100}
+                        image={images[pointType].url}
+                        scale={images[pointType].scale / 100}
                         border={0}
                       />
                     </Col>
@@ -71,8 +62,8 @@ class Avatar extends Component<Props> {
                         className={styles.scaleInput}
                         min="0"
                         max="100"
-                        value={scale}
-                        onChange={event => this.handleChange(event)}
+                        value={images[pointType].scale}
+                        onChange={event => onScale(event)}
                       />
                     </Col>
                   </Row>
@@ -105,7 +96,7 @@ class Avatar extends Component<Props> {
 }
 
 const mapStateToProps = state => ({
-  images: state.imageReducer
+  sprints: state.scrum.sprints
 });
 
 export default connect(

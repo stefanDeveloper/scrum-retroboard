@@ -1,3 +1,4 @@
 {
-  "BOARD": "/"
+  "OVERVIEW": "/",
+  "BOARD": "/sprint/:id"
 }
