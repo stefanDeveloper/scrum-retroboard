@@ -21,9 +21,18 @@ const sprint = (state: object, action: Action) => {
               continue: []
             },
             image: {
-              start: '',
-              stop: '',
-              continue: ''
+              start: {
+                url: '',
+                scale: 50
+              },
+              stop: {
+                url: '',
+                scale: 50
+              },
+              continue: {
+                url: '',
+                scale: 50
+              }
             },
             title: {
               name: 'New Sprint',

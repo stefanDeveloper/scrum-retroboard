@@ -28,6 +28,7 @@ type Props = {
   incrementLikeAll: (pointType: string) => void,
   updateImage: (image: object, pointType: string) => void,
   removeImage: (pointType: string) => void,
+  setScale: (scale: string, pointType: string, sprintId: string) => void,
   updateTitle: (title: string, sprintId: string) => void,
   updateTabName: (title: string, pointType: string, sprintId: string) => void
 };
@@ -45,6 +46,7 @@ class Board extends Component<Props> {
       removeImage,
       updateTitle,
       updateTabName,
+      setScale,
       sprintId = match.params.id,
       sprintMap = new Map(sprints.map(el => [el.id, el])),
       sprint = sprintMap.get(sprintId),
@@ -92,6 +94,9 @@ class Board extends Component<Props> {
                 sprintId={sprintId}
                 onChange={image => updateImage(image, tab.pointType, sprintId)}
                 onRemove={() => removeImage(tab.pointType, sprintId)}
+                onScale={event =>
+                  setScale(event.target.value, tab.pointType, sprintId)
+                }
               />
               <h3 className="sticky-top">
                 <Title
@@ -101,7 +106,6 @@ class Board extends Component<Props> {
                     updateTabName(event.target.value, tab.pointType, sprintId)
                   }
                 />
-                {console.log(sprint.title[tab.pointType])}
                 <Button
                   color="link"
                   className="no-print"

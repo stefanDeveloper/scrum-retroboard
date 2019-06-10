@@ -7,6 +7,7 @@ export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const LOAD = 'LOAD';
 export const UPDATE_IMAGE = 'UPDATE_IMAGE';
 export const DELETE_IMAGE = 'DELETE_IMAGE';
+export const SET_SCALE = 'SET_SCALE';
 export const ADD_SPRINT = 'ADD_SPRINT';
 export const DELETE_SPRINT = 'DELETE_SPRINT';
 export const UPDATE_TAB_NAME = 'UPDATE_TAB_NAME';

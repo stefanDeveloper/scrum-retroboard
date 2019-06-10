@@ -5,7 +5,8 @@ import {
 } from '../actions/pointAction';
 import {
   remove as removeImage,
-  update as updateImage
+  update as updateImage,
+  setScale
 } from '../actions/imageAction';
 import { update as updateTitle, updateTabName } from '../actions/titleAction';
 
@@ -24,6 +25,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateImage(image, pointType, sprintId)),
   removeImage: (pointType, sprintId) =>
     dispatch(removeImage(pointType, sprintId)),
+  setScale: (scale, pointType, sprintId) =>
+    dispatch(setScale(scale, pointType, sprintId)),
   updateTitle: (title, sprintId) => dispatch(updateTitle(title, sprintId)),
   updateTabName: (title, pointType, sprintId) =>
     dispatch(updateTabName(title, pointType, sprintId))
