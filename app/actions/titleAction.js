@@ -1,20 +1,9 @@
 // @flow
 import * as types from './actionTypes';
 
-export const update = title => ({
+// eslint-disable-next-line import/prefer-default-export
+export const update = (title, sprintId) => ({
   type: types.UPDATE_TITLE,
-  title
+  title,
+  sprintId
 });
-
-export function load(store) {
-  return {
-    type: types.LOAD,
-    store
-  };
-}
-
-export function newSprint() {
-  return {
-    type: types.NEW_SPRINT
-  };
-}

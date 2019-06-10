@@ -11,12 +11,11 @@ import {
 } from '../../actions/pointAction';
 
 type Props = {
-  points: {
-    stop: Array,
-    start: Array,
-    continue: Array
-  },
   pointType: string,
+  sprintId: string,
+  sprints: Array,
+  sprintMap: Map,
+  sprint: object,
   update: (point: object, pointType: string) => void,
   remove: (point: object, pointType: string) => void,
   incrementLike: (point: object, pointType: string) => void
@@ -30,22 +29,31 @@ class PointList extends Component<Props> {
     const { value } = event.target;
     const { update } = this.props;
     const { pointType } = this.props;
+    const { sprintId } = this.props;
     newPoint.text = value;
-    update(newPoint, pointType);
+    update(newPoint, pointType, sprintId);
   }
 
   render() {
-    const { points, pointType, incrementLike, remove } = this.props;
-    if (points.length > 0) {
+    const {
+      pointType,
+      incrementLike,
+      remove,
+      sprintId,
+      sprints,
+      sprintMap = new Map(sprints.map(el => [el.id, el])),
+      sprint = sprintMap.get(sprintId)
+    } = this.props;
+    if (sprint.points[pointType].length > 0) {
       return (
         <Container className={styles.container} fluid>
-          {points.map(point => (
+          {sprint.points[pointType].map(point => (
             <Point
               key={point.id}
               point={point}
               onChange={event => this.textChanged(event, point)}
-              onLikeClick={() => incrementLike(point, pointType)}
-              onDeleteClick={() => remove(point, pointType)}
+              onLikeClick={() => incrementLike(point, pointType, sprintId)}
+              onDeleteClick={() => remove(point, pointType, sprintId)}
             />
           ))}
         </Container>
@@ -55,14 +63,20 @@ class PointList extends Component<Props> {
   }
 }
 
+const mapStateToProps = state => ({
+  sprints: state.scrum.sprints
+});
+
 const mapDispatchToProps = dispatch => ({
-  update: (point, pointType) => dispatch(updatePoint(point, pointType)),
-  incrementLike: (point, pointType) =>
-    dispatch(incrementLikePoint(point, pointType)),
-  remove: (point, pointType) => dispatch(removePoint(point, pointType))
+  update: (point, pointType, sprintId) =>
+    dispatch(updatePoint(point, pointType, sprintId)),
+  incrementLike: (point, pointType, sprintId) =>
+    dispatch(incrementLikePoint(point, pointType, sprintId)),
+  remove: (point, pointType, sprintId) =>
+    dispatch(removePoint(point, pointType, sprintId))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(PointList);

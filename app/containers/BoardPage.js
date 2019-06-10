@@ -1,23 +1,28 @@
 import { connect } from 'react-redux';
-import Board from '../components/board/Board';
 import {
-  incrementLikeAll,
-  create as createPoint
+  create as createPoint,
+  incrementLikeAll
 } from '../actions/pointAction';
 import {
-  update as updateImage,
-  remove as removeImage
+  remove as removeImage,
+  update as updateImage
 } from '../actions/imageAction';
 
+import Board from '../components/board/Board';
+
 const mapStateToProps = state => ({
-  points: state.pointsReducer
+  sprints: state.scrum.sprints
 });
 
 const mapDispatchToProps = dispatch => ({
-  incrementLikeAll: pointType => dispatch(incrementLikeAll(pointType)),
-  createPoint: pointType => dispatch(createPoint(pointType)),
-  updateImage: (image, pointType) => dispatch(updateImage(image, pointType)),
-  removeImage: pointType => dispatch(removeImage(pointType))
+  incrementLikeAll: (pointType, sprintId) =>
+    dispatch(incrementLikeAll(pointType, sprintId)),
+  createPoint: (pointType, sprintId) =>
+    dispatch(createPoint(pointType, sprintId)),
+  updateImage: (image, pointType, sprintId) =>
+    dispatch(updateImage(image, pointType, sprintId)),
+  removeImage: (pointType, sprintId) =>
+    dispatch(removeImage(pointType, sprintId))
 });
 
 export default connect(

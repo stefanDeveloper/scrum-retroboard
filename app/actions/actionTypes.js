@@ -8,3 +8,5 @@ export const LOAD = 'LOAD';
 export const NEW_SPRINT = 'NEW_SPRINT';
 export const UPDATE_IMAGE = 'UPDATE_IMAGE';
 export const DELETE_IMAGE = 'DELETE_IMAGE';
+export const ADD_SPRINT = 'ADD_SPRINT';
+export const DELETE_SPRINT = 'DELETE_SPRINT';
