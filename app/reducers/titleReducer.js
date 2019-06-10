@@ -1,19 +1,19 @@
 // @flow
 import * as types from '../actions/actionTypes';
-import initialState from '../constants/initialState';
+
 import type { Action } from './types';
 
-const title = (state: object = initialState.title, action: Action) => {
+const title = (state: object, action: Action) => {
+  const sprintMap = new Map(state.sprints.map(el => [el.id, el]));
+  const currentSprint = Object.assign([], state.sprints);
+  const newSprint = sprintMap.get(action.sprintId);
   switch (action.type) {
     case types.UPDATE_TITLE:
+      newSprint.title.name = action.title;
       return {
         ...state,
-        title: action.title
+        sprints: currentSprint
       };
-    case types.LOAD:
-      return action.state.titleReducer;
-    case types.NEW_SPRINT:
-      return initialState.title;
     default:
       return state;
   }

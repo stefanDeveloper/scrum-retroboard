@@ -1,13 +1,27 @@
 // @flow
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  Col,
+  Container,
+  Row
+} from 'reactstrap';
 import React, { Component } from 'react';
-import { Container, Row, Col, Button } from 'reactstrap';
-import styles from './Board.css';
-import { CONTINUE_POINT, STOP_POINT, START_POINT } from '../tab/TabTypes';
+import { Link } from 'react-router-dom';
+import { CONTINUE_POINT, START_POINT, STOP_POINT } from '../tab/TabTypes';
+
+import Avatar from '../avatar/Avatar';
 import Tab from '../tab/Tab';
 import Title from '../title/Title';
-import Avatar from '../avatar/Avatar';
+import styles from './Board.css';
 
 type Props = {
+  sprints: Array,
+  match: object,
+  sprintId: string,
+  sprintMap: Map,
+  sprint: object,
   points: {
     start: Array,
     stop: Array,
@@ -25,27 +39,48 @@ class Board extends Component<Props> {
 
   render() {
     const {
-      points,
+      sprints,
+      match,
       createPoint,
       incrementLikeAll,
       updateImage,
       removeImage,
+      sprintId = match.params.id,
+      sprintMap = new Map(sprints.map(el => [el.id, el])),
+      sprint = sprintMap.get(sprintId),
       tabs = [
         {
           id: 1,
           tabType: CONTINUE_POINT,
-          title: 'Continue',
-          points: points.continue
+          title: 'Continue'
         },
-        { id: 2, tabType: START_POINT, title: 'Start', points: points.start },
-        { id: 3, tabType: STOP_POINT, title: 'Stop', points: points.stop }
+        {
+          id: 2,
+          tabType: START_POINT,
+          title: 'Start'
+        },
+        {
+          id: 3,
+          tabType: STOP_POINT,
+          title: 'Stop'
+        }
       ]
     } = this.props;
     return (
       <Container fluid>
+        <Row>
+          <Col>
+            <Breadcrumb>
+              <BreadcrumbItem active>
+                <Link to="/">Overview</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem>{sprint.title.name}</BreadcrumbItem>
+            </Breadcrumb>
+          </Col>
+        </Row>
         <Row className={styles.row}>
           <Col>
-            <Title />
+            <Title sprintId={sprintId} />
           </Col>
         </Row>
         <Row className={styles.row}>
@@ -53,28 +88,33 @@ class Board extends Component<Props> {
             <Col sm="4" key={tab.id}>
               <Avatar
                 pointType={tab.tabType}
-                onChange={image => updateImage(image, tab.tabType)}
-                onRemove={() => removeImage(tab.tabType)}
+                sprintId={sprintId}
+                onChange={image => updateImage(image, tab.tabType, sprintId)}
+                onRemove={() => removeImage(tab.tabType, sprintId)}
               />
               <h3 className="sticky-top">
                 {tab.title}
                 <Button
                   color="link"
                   className="no-print"
-                  onClick={() => createPoint(tab.tabType)}
+                  onClick={() => createPoint(tab.tabType, sprintId)}
                 >
                   <i className="fa fa-plus" />
                 </Button>
                 <Button
                   color="link"
                   className={styles['like-btn']}
-                  onClick={() => incrementLikeAll(tab.tabType)}
+                  onClick={() => incrementLikeAll(tab.tabType, sprintId)}
                 >
                   <i className="fa fa-heart" />
                 </Button>
               </h3>
               <hr className="my-2" />
-              <Tab points={tab.points} pointType={tab.tabType} />
+              <Tab
+                key={sprintId + tab.pointType}
+                pointType={tab.tabType}
+                sprintId={sprintId}
+              />
             </Col>
           ))}
         </Row>

@@ -1,27 +1,28 @@
 // @flow
 import * as types from '../actions/actionTypes';
-import initialState from '../constants/initialState';
+
 import type { Action } from './types';
 
-const title = (state: object = initialState.image, action: Action) => {
+const image = (state: object, action: Action) => {
+  const sprintMap = new Map(state.sprints.map(el => [el.id, el]));
+  const currentSprint = Object.assign([], state.sprints);
+  const newSprint = Object.assign([], sprintMap.get(action.sprintId));
   switch (action.type) {
     case types.UPDATE_IMAGE:
+      newSprint.image[action.pointType] = URL.createObjectURL(action.image);
       return {
         ...state,
-        [`image-${action.pointType}`]: URL.createObjectURL(action.image)
+        sprints: currentSprint
       };
     case types.DELETE_IMAGE:
+      newSprint.image[action.pointType] = '';
       return {
         ...state,
-        [`image-${action.pointType}`]: ''
+        sprints: currentSprint
       };
-    case types.LOAD:
-      return action.state.imageReducer;
-    case types.NEW_SPRINT:
-      return initialState.image;
     default:
       return state;
   }
 };
 
-export default title;
+export default image;

@@ -4,19 +4,19 @@ import { Container, Row } from 'reactstrap';
 import PointList from '../pointList/PointList';
 
 type Props = {
-  points: Array,
-  pointType: string
+  pointType: string,
+  sprintId: string
 };
 
 class Tab extends Component<Props> {
   props: Props;
 
   render() {
-    const { points, pointType } = this.props;
+    const { sprintId, pointType } = this.props;
     return (
       <Container fluid>
         <Row>
-          <PointList points={points} pointType={pointType} />
+          <PointList pointType={pointType} sprintId={sprintId} />
         </Row>
       </Container>
     );

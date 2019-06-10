@@ -1,26 +1,15 @@
 // @flow
 import * as types from './actionTypes';
 
-export const update = (image, pointType) => ({
+export const update = (image, pointType, sprintId) => ({
   type: types.UPDATE_IMAGE,
   image,
-  pointType
+  pointType,
+  sprintId
 });
 
-export const remove = pointType => ({
+export const remove = (pointType, sprintId) => ({
   type: types.DELETE_IMAGE,
-  pointType
+  pointType,
+  sprintId
 });
-
-export function load(store) {
-  return {
-    type: types.LOAD,
-    store
-  };
-}
-
-export function newSprint() {
-  return {
-    type: types.NEW_SPRINT
-  };
-}

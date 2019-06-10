@@ -7,9 +7,11 @@ import { connect } from 'react-redux';
 import styles from './Avatar.css';
 
 type Props = {
+  sprints: Array,
   image: object,
   images: Array,
   pointType: string,
+  sprintId: string,
   scale: number,
   onChange: (file: object) => void,
   onRemove: () => void
@@ -27,18 +29,20 @@ class Avatar extends Component<Props> {
     this.setState({ scale: 50 });
   }
 
-  componentWillUnmount() {
-    const { image } = this.props;
-    URL.revokeObjectURL(image.preview);
-  }
-
   handleChange = event => {
     const { value } = event.target;
     this.setState({ scale: value });
   };
 
   render() {
-    const { images, pointType, onChange, onRemove } = this.props;
+    const {
+      sprints,
+      sprintId,
+      images = sprints.find(sprint => sprint.id === sprintId).image,
+      pointType,
+      onChange,
+      onRemove
+    } = this.props;
     const { scale } = this.state;
     return (
       <Container className={styles.avatar}>
@@ -51,14 +55,14 @@ class Avatar extends Component<Props> {
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              {images[`image-${pointType}`] ? (
+              {images[pointType] ? (
                 <Container className={styles.dragZoneImg}>
                   <Row>
                     <Col>
                       <AvatarEditor
                         height={260}
                         width={300}
-                        image={images[`image-${pointType}`]}
+                        image={images[pointType]}
                         scale={scale / 100}
                         border={0}
                       />
@@ -105,7 +109,7 @@ class Avatar extends Component<Props> {
 }
 
 const mapStateToProps = state => ({
-  images: state.imageReducer
+  sprints: state.scrum.sprints
 });
 
 export default connect(

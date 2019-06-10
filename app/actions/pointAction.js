@@ -1,53 +1,45 @@
 // @flow
 import * as types from './actionTypes';
 
-export function update(point, pointType) {
+export function update(point, pointType, sprintId) {
   return {
     type: types.UPDATE_POINT,
     point,
-    pointType
+    pointType,
+    sprintId
   };
 }
 
-export function create(pointType) {
+export function create(pointType, sprintId) {
   return {
     type: types.CREATE_POINT,
-    pointType
+    pointType,
+    sprintId
   };
 }
 
-export function remove(point, pointType) {
+export function remove(point, pointType, sprintId) {
   return {
     type: types.REMOVE_POINT,
     point,
-    pointType
+    pointType,
+    sprintId
   };
 }
 
-export function incrementLike(point, pointType) {
+export function incrementLike(point, pointType, sprintId) {
   return {
     type: types.INCREMENT_LIKE,
     point,
-    pointType
+    pointType,
+    sprintId
   };
 }
 
-export function incrementLikeAll(pointType) {
+export function incrementLikeAll(pointType, sprintId) {
   return {
     type: types.INCREMENT_LIKE_ALL,
-    pointType
-  };
-}
-
-export function load(store) {
-  return {
-    type: types.LOAD,
-    store
-  };
-}
-
-export function newSprint() {
-  return {
-    type: types.NEW_SPRINT
+    pointType,
+    sprintId
   };
 }
