@@ -45,6 +45,8 @@ const sprint = (state: object, action: Action) => {
         ...state,
         sprints: newSprints
       };
+    case types.LOAD:
+      return action.state.scrum;
     default:
       return state;
   }
