@@ -44,7 +44,7 @@ ipcRenderer.on('open-file', (event, data) => {
 });
 
 ipcRenderer.on('new-sprint', () => {
-  store.dispatch({ type: 'NEW_SPRINT' });
+  store.dispatch({ type: 'ADD_SPRINT' });
 });
 
 ipcRenderer.on('save-file', (event, path) => {

@@ -124,7 +124,7 @@ export default class MenuBuilder {
       label: 'Retroboard',
       submenu: [
         {
-          label: 'About Electron',
+          label: 'About Scrum-Retroboard',
           selector: 'orderFrontStandardAboutPanel:'
         },
         {
