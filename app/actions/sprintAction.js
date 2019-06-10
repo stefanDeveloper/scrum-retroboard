@@ -10,15 +10,7 @@ export const remove = sprint => ({
   sprint
 });
 
-export function load(store) {
-  return {
-    type: types.LOAD,
-    store
-  };
-}
-
-export function newSprint() {
-  return {
-    type: types.NEW_SPRINT
-  };
-}
+export const load = store => ({
+  type: types.LOAD,
+  store
+});
