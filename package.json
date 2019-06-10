@@ -266,7 +266,8 @@
     "react-dropzone": "^10.1.4",
     "react-modal": "^3.8.1",
     "reactstrap": "^6.5.0",
-    "semantic-ui-react": "^0.83.0"
+    "semantic-ui-react": "^0.83.0",
+    "reduce-reducers": "^1.0.4"
   },
   "devEngines": {
     "node": ">=7.x",
