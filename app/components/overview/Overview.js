@@ -33,6 +33,20 @@ class Overview extends Component<Props> {
             </Breadcrumb>
           </Col>
         </Row>
+        <Row className="sticky-top">
+          <Col>
+            <h3 style={{ padding: '.5rem' }}>Sprints</h3>
+          </Col>
+          <Col>
+            <Button
+              color="link"
+              className="no-print float-right"
+              onClick={() => createSprint()}
+            >
+              <i className="fa fa-plus" />
+            </Button>
+          </Col>
+        </Row>
         <Row>
           <Col>
             <ListGroup>
@@ -53,17 +67,6 @@ class Overview extends Component<Props> {
                 </ListGroupItem>
               ))}
             </ListGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button
-              color="link"
-              className="no-print"
-              onClick={() => createSprint()}
-            >
-              <i className="fa fa-plus" />
-            </Button>
           </Col>
         </Row>
       </Container>
