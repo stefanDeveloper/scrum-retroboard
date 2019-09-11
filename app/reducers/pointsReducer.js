@@ -17,7 +17,7 @@ const points = (state: object, action: Action) => {
     'warning',
     'dark'
   ];
-  const indexOfpointToDelete = newPoints.find(pt => pt.id === newPoint.id);
+  const indexOfpointToDelete = newPoints.findIndex(pt => pt.id === newPoint.id);
 
   switch (action.type) {
     case types.INCREMENT_LIKE:
