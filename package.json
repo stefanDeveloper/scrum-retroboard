@@ -260,7 +260,7 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "source-map-support": "^0.5.11",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "os": "^0.1.1",
     "react-avatar-editor": "^11.0.4",
     "react-dropzone": "^10.1.4",
